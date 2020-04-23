@@ -115,7 +115,7 @@ public class MiLe1 implements QFunction {
 			
 		@Override
 		public String toString() {
-			return "-eps*(%e^(eps*cos(u))*(cos(eps*sin(u)+u)*z-eps^a*cos(eps*sin(u)+(1-a)*u)))/(z^2-2*eps^a*cos(a*u)*z+eps^(2*a))"; 
+			return "-eps*(exp(eps*cos(u))*(cos(eps*sin(u)+u)*z-eps^a*cos(eps*sin(u)+(1-a)*u)))/(z^2-2*eps^a*cos(a*u)*z+eps^(2*a))"; 
 		}
 
 	}
