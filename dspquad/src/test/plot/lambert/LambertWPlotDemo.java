@@ -1,4 +1,4 @@
-package test.plot;
+package test.plot.lambert;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -11,8 +11,8 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import ijaux.quad.QFunction;
-import ijaux.quad.misc.LambertW;
-import ijaux.quad.misc.LambertW2;
+import ijaux.quad.lam.LambertW;
+import ijaux.quad.lam.LambertW2;
 import ijaux.quad.plot.UPlotter;
 
 public class LambertWPlotDemo {

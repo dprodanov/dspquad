@@ -24,7 +24,7 @@ public class UPlotter implements UIFunction {
 	private DefaultXYDataset udata =new DefaultXYDataset();
 	private XYSeries series=null;
 	
-	private QFunction fn=null, fnx=null;
+	private QFunction fn=null, fnx=null,fny=null;
 	
 	public UPlotter(String name) {
 		title=name;
@@ -47,15 +47,19 @@ public class UPlotter implements UIFunction {
 		fn=qf;
 	}
 	
-	public void setTransform(QFunction transf) {
+	public void setTransformX(QFunction transf) {
 		fnx=transf;
+	}
+	
+	public void setTransformY(QFunction transf) {
+		fny=transf;
 	}
 	
 	public XYSeries dataset( double x0, double xn, int npoints) {
 		if (fnx==null) {
 			compute(x0, xn, npoints);		
 		}else {
-			double[] dpoints=transformX(   x0,   xn,   npoints);
+			double[] dpoints=transformX(x0, xn, npoints);
 			double[] x=Utils.linspace(x0, xn, npoints);
 			compute(x, dpoints);
 		}
@@ -76,10 +80,16 @@ public class UPlotter implements UIFunction {
 	    double[] xx=Utils.linspace(x0, xn, npoints);
 	    data[0]=xx;
 	    double[] yy=new double[xx.length];
-	    for (int i=0; i<xx.length; i++) {
-	    	yy[i]=fn.eval(xx[i]);
-	    	series.add(xx[i], yy[i]);
-	    }
+	    if (fny!=null) {
+	    	 for (int i=0; i<xx.length; i++) {
+			    yy[i]=fny.eval(fn.eval(xx[i]));
+			    series.add(xx[i], yy[i]);
+	    	 }
+	    } else
+		    for (int i=0; i<xx.length; i++) {
+		    	yy[i]=fn.eval(xx[i]);
+		    	series.add(xx[i], yy[i]);
+		    }
 	    data[1]=yy;
 	    udata.addSeries(title, data);
 		
@@ -90,10 +100,16 @@ public class UPlotter implements UIFunction {
 		double[][] data = new double[2][]; 
 	    data[0]=points;
 	    double[] yy=new double[points.length];
-	    for (int i=0; i<dpoints.length; i++) {
-	    	yy[i]=fn.eval(points[i]);
-	    	series.add(dpoints[i], yy[i]);
-	    }
+	    if (fny!=null) {
+	    	for (int i=0; i<dpoints.length; i++) {
+		    	yy[i]=fny.eval(fn.eval(points[i]));
+		    	series.add(dpoints[i], yy[i]);
+		    }
+	    } else
+		    for (int i=0; i<dpoints.length; i++) {
+		    	yy[i]=fn.eval(points[i]);
+		    	series.add(dpoints[i], yy[i]);
+		    }
 	    data[1]=yy;
 	    udata.addSeries(title, data);
 		
@@ -107,6 +123,8 @@ public class UPlotter implements UIFunction {
 		 }
 		 return x2;
 	}
+	
+
 
 	@Override
 	public void setTitle(String title) {
@@ -141,7 +159,7 @@ public static void main(String[] args) {
 	        	
 	        	UPlotter plotter=new UPlotter("x^2 /2", Lambda);
 	        	// lambda transform
-	        	plotter.setTransform(
+	        	plotter.setTransformX(
 	        			( (x) -> x*x	)
 	        			);
 	            JFrame frame = new JFrame("Charts");

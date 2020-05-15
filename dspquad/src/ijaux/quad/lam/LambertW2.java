@@ -1,4 +1,4 @@
-package ijaux.quad.misc;
+package ijaux.quad.lam;
 
 import static ijaux.quad.QuadDE.*;
 import static java.lang.Math.*; 
@@ -24,16 +24,7 @@ public class LambertW2 implements QFunction {
 			z=zz;
 		}
 	 
-		/*
-		@Override
-		public double eval(double u) {
-			final double aa=u+sin(u);
-			final double ee=z*exp(-cos(u));
-			final double rr=1.0-ee*cos(aa);
-			final double ii=ee*sin(aa);
-			return log(rr*rr+ii*ii);
-		}
-		 */
+
 		
 		@Override
 		public double eval(double u) {

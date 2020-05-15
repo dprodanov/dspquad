@@ -1,0 +1,49 @@
+
+http://www.whim.org/nebula/math/lambertw.html
+There have been quite a few posts recently regarding problems whose
+solutions involve the Lambert W-function.  I have an iterative algorithm
+that I use for computing this function that converges fairly quickly.
+First, let's look at the inverse of W(x), w e^w.
+
+Analysis of x e^x
+-----------------
+For w > 0, w e^w increases monotonically from 0 to infinity.  When w is
+negative, w e^w is negative.  Thus, for x > 0, W(x) is positive and well
+defined and increases monotonically.
+
+For w < 0, w e^w reaches a minimum of -1/e at -1.  On (-1,0), w e^w
+increases monotonically from -1/e to 0.  On (-oo,-1), w e^w decreases
+monotonically from 0 to -1/e.  Thus, on (-1/e,0), W(x) can have one of
+two values, one in (-1,0) and another in (-oo,-1).  The value in (-1,0)
+is called the principal value.
+
+The iteration
+-------------
+Using Newton's method for solving w e^w yields the following iterative
+step for finding W(x):
+
+           x e^-w + w^2
+    w    = ------------                                              [1]
+     new       w + 1
+
+Initial values of w
+-------------------
+For the principal value when -1/e <= x < 0 and when 0 <= x <= 10, use
+w = 0.  When x > 10, use w = log(x) - log(log(x)).
+
+For the non-principal value, if x is in [-1/e,-.1], use w = -2; and
+if x is in (-.1,0), use w = log(-x) - log(-log(-x)).
+
+Another iteration
+-----------------
+When x is near -1/e, [1] converges a little slowly.  I use a parabolic
+iteration method in those cases.
+
+                              x + 1/e
+    w    = -1 + (w+1) sqrt( ----------- )                            [2]
+     new                    w e^w + 1/e
+
+Using an initial w of 0 for the principal value, and w = -2 for the
+non-principal value.
+
+Rob Johnson
