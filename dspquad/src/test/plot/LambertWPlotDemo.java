@@ -12,6 +12,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import ijaux.quad.QFunction;
 import ijaux.quad.misc.LambertW;
+import ijaux.quad.misc.LambertW2;
 import ijaux.quad.plot.UPlotter;
 
 public class LambertWPlotDemo {
@@ -27,10 +28,16 @@ public static void main(String[] args) {
 	    SwingUtilities.invokeLater(new Runnable() {
 	        @Override
 			public void run() {
-	        	LambertW lw=new LambertW();    		
+	        	int branch=-1;
+	        	LambertW lw=new LambertW(branch);    		
 	        	
-	        	UPlotter plotter=new UPlotter("Lambert W", lw);
+	        	UPlotter plotter=new UPlotter("Lambert W["+branch+"]", lw);
 
+  	    		
+	        	branch=0;
+	        	LambertW lw2=new LambertW(branch);
+	        	UPlotter plotter2=new UPlotter("Lambert W["+branch+"]", lw2);
+	        	
 	            JFrame frame = new JFrame("Charts");
 
 	            frame.setSize(600, 400);
@@ -38,8 +45,10 @@ public static void main(String[] args) {
 	            frame.setVisible(true);
 	             XYSeriesCollection dataset = new XYSeriesCollection();
 	          
-	            XYSeries ds1 = plotter.dataset(-1, 10, 300);
+	            XYSeries ds1 = plotter.dataset(-0.4, 0, 300);
 	            dataset.addSeries(ds1);
+	            XYSeries ds2 = plotter2.dataset(-0.4, 0, 300);
+	            dataset.addSeries(ds2);
 	              JFreeChart chart2 = ChartFactory.createXYLineChart("Lambert W",
 	                    "x", "y", dataset, PlotOrientation.VERTICAL, true, true,
 	                    false);
