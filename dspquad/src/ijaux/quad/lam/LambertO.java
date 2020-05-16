@@ -9,8 +9,9 @@ import ijaux.quad.QFunction;
 public class LambertO implements QFunction {
 	
 	private int niter=16;
-	private double tol=1e-15;
-	 
+	private double tol=5e-16;
+	
+	public int aiter=0;
 	
 	public LambertO() {	}
 	
@@ -22,21 +23,20 @@ public class LambertO implements QFunction {
 	@Override
 	public double eval(double x) {
 		double w=1.0;
-		if (x>(2.0)) {
-			w= (x -log(x));
-		}
+		if (x<0) w=exp(x); else w=x+1;
 		int i=0;
 		double err=1e10;
 		// Halley method
-			while (i<niter && abs(err)>tol ) {
-				final double lw=log(w);
-				err=(w*x-w*lw-w*w)/(w+1.0);
-				w+=(x-lw-w)/((x-lw+1.0)/(2.0*(w+1))-(x-lw-2.0)/(2.0*w)+1);
-				i++;
-			} 
-		return w;
-	
-		
+		while (i<niter && abs(err)>tol ) {
+			final double lw=log((w));
+			err=w*(x-lw-w)/(w+1.0);
+			final double dd=((x-lw+1.0)/(2.0*(w+1))-(x-lw-2.0)/(2.0*w)+1);
+			if (dd!=0)
+				w+=(x-lw-w)/dd; 
+			i++;
+		} 
+		aiter=i-1;
+		return abs(w);
 	}
 
 
@@ -51,16 +51,19 @@ public class LambertO implements QFunction {
 		double x=0;
  
 	 
-		x=2.0;
-		System.out.println("x= "+x+ " W= " +lw.eval(x));
-		x=-exp(-1.0);
-		System.out.println("x= "+x+ " W= " +lw.eval(x));
+		x=-20.0;
+		System.out.println("x= "+x+ " W= " +lw.eval(x) + " n="+lw.aiter);
+		x=-2;
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
 		x=0;
-		System.out.println("x= "+x+ " W= " +lw.eval(x));
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
 		x=1.0;
-		System.out.println("x= "+x+ " W= " +lw.eval(x));
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
 		x=10.0;
-		System.out.println("x= "+x+ " W= " +lw.eval(x));
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
+		
+		x=1000.0;
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
 	}
 
 }

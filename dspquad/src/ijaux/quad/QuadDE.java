@@ -42,7 +42,7 @@ for the tanh-sinh (double exponential) method
 		
 	public static final String version="1.0";
 
- /*
+ /**
   * @param f - integrand f(x)
   * f(x) needs to be analytic over (a,b).
   * @param a - lower limit of integration 
@@ -73,7 +73,6 @@ for the tanh-sinh (double exponential) method
                               and frequency of the oscillation 
                               is very high.
 		*/
-
 	public	static double[] intde(QFunction f, double a, double b, double eps){
 			/* ---- adjustable parameter ---- */
 			int mmax = 512;
@@ -144,7 +143,7 @@ for the tanh-sinh (double exponential) method
 			return new double[] {i, err};
 		}
 		
- /*
+ /**
   * @param f - integrand f(x) 
   * @param a - lower limit of integration 
   * @param eps - relative error requested 
@@ -174,7 +173,6 @@ for the tanh-sinh (double exponential) method
 	                              and decay of f(x) is very slow 
 	                              as x -> infinity.
 	*/
-
 	public	static double[] intdei(QFunction f, double a, double eps){
 			/* ---- adjustable parameter ---- */
 			int mmax = 256;
@@ -247,7 +245,7 @@ for the tanh-sinh (double exponential) method
 			return new double[] {i, err};
 		}
 	
-	/*
+	/**
 	 * @param f - integrand f(x)  
                    f(x) needs to be analytic over (a,infinity)
        @param a - lower limit of integration 
@@ -401,7 +399,8 @@ for the tanh-sinh (double exponential) method
 			return new double[] {i, err};  
 		}
 	
-	/* adaptive integration
+	/** 
+	 * adaptive integration
 	 * @param f - integrand f(x) 
        @param a - lower limit of integration 
        @param b - upper limit of integration 
@@ -416,7 +415,8 @@ for the tanh-sinh (double exponential) method
 		 
 	 }
 	
-	 /* adaptive integration
+	 /**
+	  *  adaptive integration
 		 * @param f - integrand f(x) 
 	       @param a - lower limit of integration 
 	       @param b - upper limit of integration 
@@ -445,7 +445,8 @@ for the tanh-sinh (double exponential) method
 	            return adaptive(f,a, c, fa, fc, eps) + adaptive(f, c, b, fc, fb, eps);
 	   }
 	 
-	 /* adaptive integration
+	 /**
+	  *  adaptive integration
 		 * @param f - integrand f(x) 
 		 *  the method is recursive and uses regula falsi splitting of the interval
 		 *  
@@ -464,9 +465,9 @@ for the tanh-sinh (double exponential) method
 			
 	 private static double adaptivef(QFunction f, double a, double b, double fa, double fb, double eps) {
 	        final double h = b - a;
-	        // to change for regula falsi type rule
 	        final double m= (a+b)*0.5;
 	        final double fm=f.eval(m);
+	        // regula falsi splitting
 	        final double c= m + h/4.0*((fb-fa)/(fm-fa)- (fb-fa)/(fb-fm));
 	        //final double c = (a + b) *0.5;
 	        final double d = (a + c) *0.5;

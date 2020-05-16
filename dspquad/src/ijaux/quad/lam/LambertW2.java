@@ -23,8 +23,6 @@ public class LambertW2 implements QFunction {
 		public void setVal(double zz) {
 			z=zz;
 		}
-	 
-
 		
 		@Override
 		public double eval(double u) {

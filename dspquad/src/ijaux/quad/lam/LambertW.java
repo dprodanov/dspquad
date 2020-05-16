@@ -14,8 +14,10 @@ import ijaux.quad.QFunction;
 public class LambertW implements QFunction {
 	
 	private int niter=16;
-	private double tol=1e-15;
+	private double tol=5e-16;
 	private int branch=0;
+	
+	public int aiter=0;
 	
 	public LambertW() {	}
 	
@@ -55,11 +57,11 @@ public class LambertW implements QFunction {
 			while (i<niter && abs(err)>tol ) {
 				final double ew=exp(w);
 				err=(x/ew-w)/(1.0+w);
-				//w+=(x-w*ew)/(ew*(w+1)- (w+2)*(w*ew-x)/(w+1.0)/2.0   );
 				w+=(x-w*ew)/(ew*(w+1)+ (w+2)*(x-w*ew)/(w+1.0)/2.0   );
 				i++;
 			} 
 			//System.out.println(-exp(-2.0)+" niter " +i +" err "+abs(err)+" "+dw);
+			aiter=i-1;
 			return w;
 		} else {
 			//System.out.println("err "+err);
@@ -73,9 +75,11 @@ public class LambertW implements QFunction {
 				i++;
 			}
 			//System.out.println("niter " +i +" err "+abs(err-w));
+			aiter=i-1;
 			return w;
 		}
 	}
+	
 	/**
 	 * @param x
 	 * @return
@@ -87,37 +91,65 @@ public class LambertW implements QFunction {
 		}
 		int i=0;
 		double err=1e10;
-		// Halley method
+		if (x>=-exp(-2.0)) {
 			while (i<niter && abs(err)>tol ) {
 				final double ew=exp(w);
 				err=(x/ew-w)/(1.0+w);
-				//w+=(x-w*ew)/(ew*(w+1)- (w+2)*(w*ew-x)/(w+1.0)/2.0   );
 				w+=(x-w*ew)/(ew*(w+1)+ (w+2)*(x-w*ew)/(w+1.0)/2.0   );
 				i++;
 			} 
-		return w;
+			//System.out.println(-exp(-2.0)+" niter " +i +" err "+abs(err)+" "+dw);
+			aiter=i-1;
+			return w;
+		} else {
+			//System.out.println("err "+err);
+			while (i<niter && abs(err-w)>tol ) {
+				err=w;
+				double aa=(E*x+1.0);
+				double bb=(w*exp(w)*E+1.0);
+				if (bb!=0)
+					w=-1.0+(1.0+w)*sqrt( abs(aa/ bb));			 
+				//System.out.println(aa+" "+bb+" " +w+" " +err);
+				i++;
+			}
+			//System.out.println("niter " +i +" err "+abs(err-w));
+			aiter=i-1;
+			return w;
+		}
 	}
 
 	public static void main(String[] args) {
 		LambertW lw=new LambertW(-1);
 		double x=0;
-		x=2.0;
-		//System.out.println("x= "+x+ " W= " +lw.eval(x));
+		
+		/*
+		 * Non-Principal branch 
+		 */
 		x=-exp(-1.0);
-		System.out.println("x= "+x+ " W= " +lw.eval(x));
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
 		x=-exp(-2.0);
-		System.out.println("x= "+x+ " W= " +lw.eval(x));
-		x=1.0;
-		//System.out.println("x= "+x+ " W= " +lw.eval(x));
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
+		x=-exp(-5.0);
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
+		
+		/*
+		 * Principal branch 
+		 */
 		lw=new LambertW(0);
-		x=2.0;
-		System.out.println("x= "+x+ " W= " +lw.eval(x));
 		x=-exp(-1.0);
-		System.out.println("x= "+x+ " W= " +lw.eval(x));
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
 		x=-exp(-2.0);
-		System.out.println("x= "+x+ " W= " +lw.eval(x));
-		x=1.0;
-		//System.out.println("x= "+x+ " W= " +lw.eval(x));
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
+		x=-exp(-3.0);
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
+		x=-exp(-4.0);
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
+		x=2.0;
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
+		x=10.0;
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
+		x=300.0;
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
 	}
 
 }
