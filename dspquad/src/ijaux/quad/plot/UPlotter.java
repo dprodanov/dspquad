@@ -26,16 +26,31 @@ public class UPlotter implements UIFunction {
 	
 	private QFunction fn=null, fnx=null,fny=null;
 	
+	/**
+	 * 
+	 * @param name
+	 */
 	public UPlotter(String name) {
 		title=name;
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 * @param qf
+	 */
 	public UPlotter(String name, QFunction qf) {
 		title=name;
 		fn=qf;
 		series=new XYSeries(title);
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 * @param qf
+	 * @param transf
+	 */
 	public UPlotter(String name, QFunction qf, QFunction transf) {
 		title=name;
 		fn=qf;
@@ -43,18 +58,52 @@ public class UPlotter implements UIFunction {
 		series=new XYSeries(title);
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 * @param qf
+	 * @param transfx
+	 * @param transfy
+	 */
+	public UPlotter(String name, QFunction qf, QFunction transfx, QFunction transfy ) {
+		title=name;
+		fn=qf;
+		fnx=transfx;
+		fny=transfy;
+		series=new XYSeries(title);
+	}
+	
+	/**
+	 * 
+	 * @param qf
+	 */
 	public void setFunction(QFunction qf) {
 		fn=qf;
 	}
 	
+	/**
+	 * 
+	 * @param transf
+	 */
 	public void setTransformX(QFunction transf) {
 		fnx=transf;
 	}
 	
+	/**
+	 * 
+	 * @param transf
+	 */
 	public void setTransformY(QFunction transf) {
 		fny=transf;
 	}
 	
+	/**
+	 * 
+	 * @param x0
+	 * @param xn
+	 * @param npoints
+	 * @return
+	 */
 	public XYSeries dataset( double x0, double xn, int npoints) {
 		if (fnx==null) {
 			compute(x0, xn, npoints);		
@@ -66,6 +115,14 @@ public class UPlotter implements UIFunction {
 		    return getSeries();
 	}
 	
+	/**
+	 * 
+	 * @param x0
+	 * @param xn
+	 * @param npoints
+	 * @param transf
+	 * @return
+	 */
 	public XYSeries dataset( double x0, double xn, int npoints, QFunction transf) {
 		fnx=transf;
 		double[] dpoints=transformX(   x0,   xn,   npoints);
@@ -74,6 +131,9 @@ public class UPlotter implements UIFunction {
 	    return getSeries();
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void compute(double x0, double xn, int npoints) {
 		double[][] data = new double[2][]; 
@@ -95,6 +155,9 @@ public class UPlotter implements UIFunction {
 		
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void compute(double[] dpoints, double[] points) {
 		double[][] data = new double[2][]; 
@@ -115,7 +178,14 @@ public class UPlotter implements UIFunction {
 		
 	}
 	
-	public double[]  transformX( double x0, double xn, int npoints) {
+	/**
+	 * 
+	 * @param x0
+	 * @param xn
+	 * @param npoints
+	 * @return
+	 */
+	public double[] transformX( double x0, double xn, int npoints) {
   		 double[] x=Utils.linspace(x0, xn, npoints);
 		 double[] x2=new double[npoints];
 		 for (int i=0; i<npoints; i++) {
