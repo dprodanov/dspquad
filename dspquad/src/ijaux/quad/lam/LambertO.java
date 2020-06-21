@@ -23,7 +23,8 @@ public class LambertO implements QFunction {
 	@Override
 	public double eval(double x) {
 		double w=1.0;
-		if (x<0) w=exp(x); else w=x+1;
+		if (x<=1) w=exp(x); else w=x-log(x);
+		//if (w==0) w=tol;
 		int i=0;
 		double err=1e10;
 		// Halley method

@@ -74,28 +74,28 @@ for the tanh-sinh (double exponential) method
                               is very high.
 		*/
 	public	static double[] intde(QFunction f, double a, double b, double eps){
-			/* ---- adjustable parameter ---- */
+			/* ---- adjustable parameters ---- */
 			int mmax = 512;
 			double efs = 0.1, hoff = 8.5;
 			/* ------------------------------ */
 			int m=1;
-			double pi2, epsln, epsh, h0, ehp, ehm, epst, ba, ir, h, iback, 
-			irback, t, ep, em, xw, xa, wg, fa=0.0, fb=0.0, errt, errh=0, errd;
+			double  iback, irback, t, ep, em, xw, xa, wg;
+			double fa=0.0, fb=0.0, errt, errh=0, errd;
 
 			//pi2 = 2 * atan(1.0);
-			pi2 = 0.5*PI;
-			epsln = 1 - log(efs * eps);
-			epsh = sqrt(efs * eps);
-			h0 = hoff / epsln;
-			ehp = exp(h0);
-			ehm = 1 / ehp;
-			epst = exp(-ehm * epsln);
-			ba = b - a;
-			ir = f.eval((a + b) * 0.5) * (ba * 0.25);
-			double i = ir * (2 * pi2);
+			final double pi2 = 0.5*PI;
+			final double epsln = 1.0 - log(efs * eps);
+			final double epsh = sqrt(efs * eps);
+			final double h0 = hoff / epsln;
+			final double ehp = exp(h0);
+			final double ehm = 1.0 / ehp;
+			final double epst = exp(-ehm * epsln);
+			final double ba = b - a;
+			double ir = f.eval((a + b) * 0.5) * (ba * 0.25);
+			double i = ir * (2.0 * pi2);
 			double err = abs(i) * epst;
 			//double f1=0, f2=0;
-			h = 2 * h0;
+			double h = 2 * h0;
 			//m = 1;
 			do {
 				iback = i;
@@ -106,12 +106,12 @@ for the tanh-sinh (double exponential) method
 					ep = pi2 * em;
 					em = pi2 / em;
 					do {
-						xw = 1 / (1 + exp(ep - em));
+						xw = 1.0 / (1.0 + exp(ep - em));
 						xa = ba * xw;
 						wg = xa * (1 - xw);
 						
 						//f1 = f.eval(a + xa) * wg;
-						//2 = f.eval(b - xa) * wg;
+						//f2 = f.eval(b - xa) * wg;
 						fa = f.eval(a + xa) * wg;
 						fb = f.eval(b - xa) * wg;
 						//if (!Double.isNaN(f1)) fa=f1*wg;
@@ -127,9 +127,9 @@ for the tanh-sinh (double exponential) method
 				} while (t < h0);
 				if (m == 1) {
 					errh = (err / epst) * epsh * h0;
-					errd = 1 + 2 * errh;
+					errd = 1.0 + 2.0 * errh;
 				} else {
-					errd = h * (abs(i - 2 * iback) + 4 * abs(ir - 2 * irback));
+					errd = h * (abs(i - 2.0 * iback) + 4.0 * abs(ir - 2.0 * irback));
 				}
 				h *= 0.5;
 				m *= 2;
@@ -138,7 +138,7 @@ for the tanh-sinh (double exponential) method
 			if (errd > errh) {
 				err = -errd * m;
 			} else {
-				err = errh * epsh * m / (2 * efs);
+				err = errh * epsh * m / (2.0 * efs);
 			}
 			return new double[] {i, err};
 		}
@@ -179,12 +179,12 @@ for the tanh-sinh (double exponential) method
 			double efs = 0.1, hoff = 11.0;
 			/* ------------------------------ */
 			int m;
-			double pi4, epsln, epsh, h0, ehp, ehm, epst, ir, h, iback, irback, 
+			double  epsh, h0, ehp, ehm, epst, ir, h, iback, irback, 
 			t, ep, em, xp, xm, fp, fm, errt=0, errh=0, errd;
 
 			//pi4 = atan(1.0);
-			pi4 = 0.25*PI;
-			epsln = 1 - log(efs * eps);
+			final double pi4 = 0.25*PI;
+			final double epsln = 1 - log(efs * eps);
 			epsh = sqrt(efs * eps);
 			h0 = hoff / epsln;
 			ehp = exp(h0);
@@ -282,28 +282,28 @@ for the tanh-sinh (double exponential) method
 			int mmax = 256, lmax = 5;
 			double efs = 0.1, enoff = 0.40, pqoff = 2.9, ppoff = -0.72;
 			/* ------------------------------ */
-			int n, m, l, k;
-			double pi4, epsln, epsh, frq4, per2, pp, pq, ehp, ehm, ir, h, iback, 
-			irback, t, ep, em, tk, xw, wg, xa, fp, fm, errh=0, tn, errd;
+			int m, l, k;
+			double iback, irback, t, ep, em, tk,  
+			wg, xa, fp, fm, errh=0, tn, errd;
 
 			//pi4 = atan(1.0);
-			pi4 = 0.25*PI;
-			epsln = 1 - log(efs * eps);
-			epsh = sqrt(efs * eps);
-			n = (int) (enoff * epsln);
-			frq4 = abs(omega) / (2 * pi4);
-			per2 = 4 * pi4 / abs(omega);
-			pq = pqoff / epsln;
-			pp = ppoff - log(pq * pq * frq4);
-			ehp = exp(2 * pq);
-			ehm = 1 / ehp;
-			xw = exp(pp - 2 * pi4);
+			final double pi4 = 0.25*PI;
+			final double epsln = 1 - log(efs * eps);
+			final double epsh = sqrt(efs * eps);
+			final int n = (int) (enoff * epsln);
+			final double frq4 = abs(omega) / (2 * pi4);
+			final double per2 = 4 * pi4 / abs(omega);
+			double pq = pqoff / epsln;
+			double pp = ppoff - log(pq * pq * frq4);
+			final double ehp = exp(2 * pq);
+			final double ehm = 1 / ehp;
+			double xw = exp(pp - 2 * pi4);
 
 			double i = f.eval(a + sqrt(xw * (per2 * 0.5)));
-			ir = i * xw;
+			double ir = i * xw;
 			i *= per2 * 0.5;
 			double err = abs(i);
-			h = 2;
+			double h = 2.0;
 			m = 1;
 			do {
 				iback = i;
@@ -330,7 +330,7 @@ for the tanh-sinh (double exponential) method
 						if (m == 1) err += abs(fp) + abs(fm);
 						ep *= ehp;
 						em *= ehm;
-						tk += 1;
+						tk += 1.0;
 					} while (ep < epsln);
 					if (m == 1) {
 						errh = err * epsh;
@@ -340,14 +340,14 @@ for the tanh-sinh (double exponential) method
 					while (abs(fm) > err) {
 						xw = exp(pp - ep - em);
 						xa = xw / tk * 0.5;
-						wg = xa * (1 / tk + 2 * pq * (ep - em));
+						wg = xa * (1.0 / tk + 2 * pq * (ep - em));
 						fm = f.eval(a + xa);
 						ir += fm * xw;
 						fm *= wg;
 						i += fm;
 						ep *= ehp;
 						em *= ehm;
-						tk += 1;
+						tk += 1.0;
 					}
 					fm = f.eval(a + per2 * tn);
 					em = per2 * fm;
@@ -383,9 +383,9 @@ for the tanh-sinh (double exponential) method
 					t += h;
 				} while (t < 1);
 				if (m == 1) {
-					errd = 1 + 2 * errh;
+					errd = 1.0 + 2.0 * errh;
 				} else {
-					errd = h * (abs(i - 2 * iback) + pq * abs(ir - 2 * irback));
+					errd = h * (abs(i - 2.0 * iback) + pq * abs(ir - 2.0 * irback));
 				}
 				h *= 0.5;
 				m *= 2;

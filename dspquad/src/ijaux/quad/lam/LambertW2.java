@@ -16,6 +16,9 @@ public class LambertW2 implements QFunction {
 	private double tol=1e-15;
 	private KerF qf=new KerF();
 	
+	//////////////////
+	// Kernel
+	/////////////////
 	private class KerF implements QFunction {
 
 		double z=0;

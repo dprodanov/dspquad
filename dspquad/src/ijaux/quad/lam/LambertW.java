@@ -31,6 +31,12 @@ public class LambertW implements QFunction {
 		System.out.println("branch "+branch);
 	}
 	
+	public void setBranch(int bb) {
+		if (bb>=0) branch=0; 
+		else branch=-1;
+		//System.out.println("branch "+branch);
+	}
+	
 	@Override
 	public double eval(double x) {
 		if (x<-exp(-1)) {return Double.NaN;};
@@ -64,18 +70,18 @@ public class LambertW implements QFunction {
 			aiter=i-1;
 			return w;
 		} else {
-			//System.out.println("err "+err);
 			while (i<niter && abs(err-w)>tol ) {
 				err=w;
-				double aa=(E*x+1.0);
-				double bb=(w*exp(w)*E+1.0);
-				if (bb!=0)
+				final double aa=(E*x+1.0);
+				final double ew=exp(w);
+				final double bb=(w*ew*E+1.0);
+				if (bb!=0)	
 					w=-1.0+(1.0+w)*sqrt( abs(aa/ bb));			 
 				//System.out.println(aa+" "+bb+" " +w+" " +err);
 				i++;
 			}
 			//System.out.println("niter " +i +" err "+abs(err-w));
-			aiter=i-1;
+			aiter=i;
 			return w;
 		}
 	}
@@ -105,15 +111,16 @@ public class LambertW implements QFunction {
 			//System.out.println("err "+err);
 			while (i<niter && abs(err-w)>tol ) {
 				err=w;
-				double aa=(E*x+1.0);
-				double bb=(w*exp(w)*E+1.0);
+				final double aa=(E*x+1.0);
+				final double ew=exp(w);
+				final double bb=(w*ew*E+1.0);
 				if (bb!=0)
 					w=-1.0+(1.0+w)*sqrt( abs(aa/ bb));			 
 				//System.out.println(aa+" "+bb+" " +w+" " +err);
 				i++;
 			}
 			//System.out.println("niter " +i +" err "+abs(err-w));
-			aiter=i-1;
+			aiter=i;
 			return w;
 		}
 	}

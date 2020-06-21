@@ -1,5 +1,12 @@
 package ijaux.quad.plot;
 
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -215,6 +222,9 @@ public class UPlotter implements UIFunction {
 	public XYSeries getSeries() {
 		return series;
 	} 
+	
+	
+
 	
 	
 public static void main(String[] args) {
