@@ -5,7 +5,8 @@ import static java.lang.Math.*;
 import ijaux.quad.QFunction;
 
 
-/* Computes the principal branch of the LAmber W function 
+/* 
+ * Computes the principal branch of the Lambert W function 
  * Corless, R. M.; Gonnet, G. H.; Hare, D. E. G.; Jeffrey, D. J.; Knuth, D. E. (1996). 
  * "On the Lambert W function". 
  *  Advances in Computational Mathematics. 5: 329–359. doi:10.1007/BF02124750

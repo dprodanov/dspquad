@@ -3,7 +3,7 @@ package ijaux.quad.lam;
 import static java.lang.Math.*; 
 import ijaux.quad.QFunction;
 
-/* Computes the principal branch of the Lamber Omega function 
+/* Computes the principal branch of the Lambert Omega function 
  *
  */
 public class LambertO implements QFunction {
