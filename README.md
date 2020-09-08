@@ -1,4 +1,6 @@
 # dspquad
 Quadrature for DSP
 
-double exponential and adpative quadrature methods
+The purpose of the package is to provide routines for the 
+double exponential and adpative quadrature methods in Java. 
+In additon, many special functions, having integral representations are implemented
