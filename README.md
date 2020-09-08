@@ -6,7 +6,10 @@ double exponential and adpative quadrature methods in Java.
 In additon, many special functions, having integral representations are implemented.
 These include
 -- erf
+
 -- BesselJ
+
 -- the Euler functions
+
 -- Wright function
 
