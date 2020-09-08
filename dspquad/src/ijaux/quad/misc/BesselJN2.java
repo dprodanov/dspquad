@@ -4,10 +4,10 @@
 package ijaux.quad.misc;
 import static java.lang.Math.*;
 
-import ijaux.quad.BesselJ0;
-import ijaux.quad.BesselJ1;
-import ijaux.quad.BesselJN;
 import ijaux.quad.QFunction;
+import ijaux.quad.gbessel.BesselJ0;
+import ijaux.quad.gbessel.BesselJ1;
+import ijaux.quad.gbessel.BesselJN;
 
 /**
  * @author prodanov

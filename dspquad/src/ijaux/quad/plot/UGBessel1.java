@@ -4,8 +4,8 @@ import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 
-import ijaux.quad.GBessel1;
 import ijaux.quad.Utils;
+import ijaux.quad.gbessel.GBessel1;
 
 public class UGBessel1 extends GBessel1 implements UIFunction {
 	

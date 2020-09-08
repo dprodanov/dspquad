@@ -4,8 +4,8 @@ import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 
-import ijaux.quad.IMWright;
 import ijaux.quad.Utils;
+import ijaux.quad.wright.IMWright;
 
 public class UIMWright extends IMWright implements UIFunction {
 

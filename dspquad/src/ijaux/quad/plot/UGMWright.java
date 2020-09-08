@@ -4,8 +4,8 @@ import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 
-import ijaux.quad.GMWright;
 import ijaux.quad.Utils;
+import ijaux.quad.wright.GMWright;
 
 public class UGMWright extends GMWright implements UIFunction {
 
