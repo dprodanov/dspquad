@@ -5,11 +5,12 @@ The purpose of the package is to provide routines for the
 double exponential and adpative quadrature methods in Java. 
 In additon, many special functions, having integral representations are implemented.
 These include
--- erf
 
--- BesselJ
+* erf
 
--- the Euler functions
+* BesselJ
 
--- Wright function
+* the Euler functions
+
+* Wright function
 
