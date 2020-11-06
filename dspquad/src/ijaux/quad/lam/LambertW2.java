@@ -7,13 +7,12 @@ import ijaux.quad.QFunction;
 
 /* 
  * Computes the principal branch of the Lambert W function 
- * Corless, R. M.; Gonnet, G. H.; Hare, D. E. G.; Jeffrey, D. J.; Knuth, D. E. (1996). 
- * "On the Lambert W function". 
- *  Advances in Computational Mathematics. 5: 329–359. doi:10.1007/BF02124750
+ * German A. Kalugin, David J. Jeffrey, and Robert M. Corless. 
+ * "Stieltjes, Poisson and other integral representations for functions of Lambert W". 
+ *  https://arxiv.org/abs/1103.5640
  */
 public class LambertW2 implements QFunction {
 	
-	//private int niter=16;
 	private double tol=1e-15;
 	private KerF qf=new KerF();
 	
@@ -43,8 +42,7 @@ public class LambertW2 implements QFunction {
 
 		@Override
 		public String toString() {
-			return "log((1 -z*exp(-cos(u))*cos(u+sin(u)))^2+"
-					+ "(z*exp(-cos(u))*sin(u+sin(u)))^2) ";
+			return  "((1- cot(u))^2 +u^2)/(z+ u*cot(u)*exp(- u*cot(u)))";
 		}
 		
 	 
