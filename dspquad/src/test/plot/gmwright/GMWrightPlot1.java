@@ -11,14 +11,18 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import ijaux.quad.plot.IFChart;
 import ijaux.quad.plot.UGMWright;
  
  
-public class GMWrightPlot1 {
+public class GMWrightPlot1 implements IFChart {
 
 public static void main(String[] args) {
 
     SwingUtilities.invokeLater(new Runnable() {
+    	
+    	GMWrightPlot1 ip= new GMWrightPlot1();
+    	
         @Override
 		public void run() {
             JFrame frame = new JFrame("GmWright Charts");
@@ -48,6 +52,7 @@ public static void main(String[] args) {
             ChartPanel cp = new ChartPanel(chart2);
           
             frame.getContentPane().add(cp);
+            //ip.exportAsPNG(chart2, 800, 600, "C:\\Temp\\wright1.png");
         }
     });
 

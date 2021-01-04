@@ -13,7 +13,7 @@ import ijaux.quad.euler.Gamma;
 
 M-Wirght kernels
 
-\frac{1}{2 \pi  }\int_{0}{\infty} exp( - k^a)*J_0 ( k r)  k^3 d k
+\frac{1}{2 \pi  }\int_{0}{\infty} exp( - k^a)*J_0 ( k r) *  k^3 * d k
  
  
 */
@@ -29,6 +29,7 @@ public class GBessel2L implements QFunction {
 		double z=0;
 
 		private BesselJ0 besselj0= new BesselJ0();
+		//private BesselJN besselj0= new BesselJN(0);
 					
 		public void setVal(double aa, double  zz) {
 			a=aa;
@@ -44,7 +45,8 @@ public class GBessel2L implements QFunction {
 
 		@Override
 		public String toString() {
-			return " exp(-k^a)*(J_0 ( k r) -J_2 ( k r) )  k^3 ";
+			//return " exp(-k^a)*(J_0 ( k r) -J_2 ( k r) )  k^3 ";
+			return " exp(-k^a)* J_0 ( k r) * k^3 ";
 		}
 		
 		@Override

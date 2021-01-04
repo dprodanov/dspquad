@@ -14,7 +14,7 @@ import ijaux.quad.QFunction;
 public class LambertW2 implements QFunction {
 	
 	private double tol=1e-15;
-	private KerF qf=new KerF();
+	private final KerF qf=new KerF();
 	
 	//////////////////
 	// Kernel
@@ -62,7 +62,6 @@ public class LambertW2 implements QFunction {
 		qf.setVal(x);
 		double ret=qf.prefactor();
 		final double[] vv=intde(qf, 0.0, PI, tol);
-		//double w=vv[0]*ret;
 		double w=vv[0]*ret*x;
 		return w;
 	}

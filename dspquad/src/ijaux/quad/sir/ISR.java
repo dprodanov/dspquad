@@ -85,15 +85,8 @@ public class ISR implements QFunction {
  
 	private double approx(double x, double g, double a) {
 		final double bb=g*log(g)-g+a;
-		  double cc=ww.eval( a*log(a+1))*g/E;
-			if (x<0) {cc=cc*E;}
-//		double cc=1.0;
-//		if (g>=1.0)
-//			cc=sqrt(2.0*bb*g);
-//		else
-//			cc=sqrt(1/E*2.0*bb*g*2.0);
-//		
-//		if (x>0) cc=cc/sqrt(E);
+		double cc=ww.eval( a*log(a+1))*g/E;
+		if (x<0) {cc=cc*E;}
 		final double ch=cosh(exp(-cc*x));
 		final double th=tanh(exp(-cc*x));
 		final double w= aq*exp(-cc*x)*th/(ch*ch);

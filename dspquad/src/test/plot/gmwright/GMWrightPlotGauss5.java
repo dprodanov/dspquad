@@ -12,14 +12,16 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import ijaux.quad.Utils;
+import ijaux.quad.plot.IFChart;
 import ijaux.quad.plot.UGMWright;
 import static java.lang.Math.*;
  
-public class GMWrightPlotGauss5 {
+public class GMWrightPlotGauss5  implements IFChart {
 
 public static void main(String[] args) {
 
     SwingUtilities.invokeLater(new Runnable() {
+    	GMWrightPlotGauss5 ip=new GMWrightPlotGauss5();
         @Override
 		public void run() {
             JFrame frame = new JFrame("GMWright Charts");
@@ -42,6 +44,7 @@ public static void main(String[] args) {
             ChartPanel cp = new ChartPanel(chart2);
           
             frame.getContentPane().add(cp);
+           // ip.exportAsPNG(chart2, 800, 600, "C:\\Temp\\gaussian1.png"); 
         }
     });
 
@@ -58,7 +61,7 @@ public static void main(String[] args) {
 	
 	private static XYSeries datasetGauss( double x0, double xn, int npoints) {
 		
-		XYSeries series=new XYSeries("Gauss -(x*(x^2-6)*%e^(-x^2/4))/(8*sqrt(%pi))");
+		XYSeries series=new XYSeries("Gauss -(x*(x^2-6)*e^(-x^2/4))/(8*sqrt(pi))");
  
 		double[][] data = new double[2][]; //{ {0.1, 0.2, 0.3}, {1, 2, 3} };
  		 

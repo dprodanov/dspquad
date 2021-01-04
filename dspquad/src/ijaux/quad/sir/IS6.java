@@ -38,7 +38,9 @@ public class IS6 implements QFunction {
 	public IS6(double gg, double aa) {
 		a=aa;
 		g=gg;
+		//Lambert Omega2 principal branch
 		lw_plus.setBranch(0);
+		//Lambert Omega2 non principal branch
 		lw_minus.setBranch(-1);
 		iq_plus.setVal(gg, aa);
 		iq_plus.setBranch(0);

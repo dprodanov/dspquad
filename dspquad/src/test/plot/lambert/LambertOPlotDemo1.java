@@ -42,14 +42,14 @@ public static void main(String[] args) {
   	    		
 	        	branch=0;
 	        	LambertW lw2=new LambertW(branch);
-	        	UPlotter plotter2=new UPlotter("Lambert W["+branch+"](exp(x)", lw2);
+	        	UPlotter plotter2=new UPlotter(" W["+branch+"](exp(x))", lw2);
 	        	
 	        	plotter2.setTransformX(
 	        			( (x) -> exp(x)	)
 	        			);
 	        	
-	        	UPlotter plotter3=new UPlotter("x-log(x +1)", 
-	        			(x) ->  (x -log(x +1.0) ) );
+	        	UPlotter plotter3=new UPlotter("x-log(x )", 
+	        			(x) ->  (x -log(x ) ) );
 	        	
 	            JFrame frame = new JFrame("Charts");
 

@@ -12,12 +12,14 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import ijaux.quad.Utils;
+import ijaux.quad.plot.IFChart;
 import ijaux.quad.plot.UGMWright;
 import static java.lang.Math.*;
  
-public class GMWrightBesselSinc {
+public class GMWrightBesselSinc implements IFChart {
 
 public static void main(String[] args) {
+	GMWrightBesselSinc ip = new GMWrightBesselSinc();
 
     SwingUtilities.invokeLater(new Runnable() {
         @Override
@@ -44,7 +46,7 @@ public static void main(String[] args) {
            dataset2.addSeries(ds2);       
            dataset.addSeries(ds2);
            frame.getContentPane().add(cp);
-       
+          // ip.exportAsPNG(chart1, 800, 600, "C:\\Temp\\bessel_sinc.png"); 
         }
     });
 

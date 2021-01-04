@@ -11,10 +11,11 @@ import ijaux.quad.euler.Gamma;
  * 
  * 
 
-Wirght kernel
+Wright kernel
 
+$
 \frac{1}{2 \pi i}\int_{Ha} exp(\xi +z/\xi^a) /\xi^b d \xi
-
+$
 cases b<=1 
 a<0
  
@@ -54,14 +55,22 @@ public class GMWright implements QFunction {
 	//  Integral Kernels
 	////////////////////////
 	
-	/*
-	 *  Ker=u^(1/b-2)*%e^(-(cos(%pi*a)*z)/u^(a/b)-u^(1/b))*sin((sin(%pi*a)*z-%pi*b*u^(a/b))/u^(a/b))
+	/**
+	 * Ker=u^(1/b-2)*%e^(-(cos(%pi*a)*z)/u^(a/b)-u^(1/b))*sin((sin(%pi*a)*z-%pi*b*u^(a/b))/u^(a/b))
+	 * 
+	 * @author Dimiter Prodanov
 	 */
 	private class KerF implements QFunction {
 
 		double a=0, b=1;
 		double z=0;
 
+		/**
+		 * 
+		 * @param aa
+		 * @param bb
+		 * @param zz
+		 */
 		public void setVal(double aa, double bb, double  zz) {
 			a=aa;
 			b=bb;
@@ -110,8 +119,10 @@ public class GMWright implements QFunction {
 	}
 	/////////////////
 	
-	/*
-	 *  Ker=u^(-b/a+1/a-1)*%e^(-(cos(%pi*a)*z)/u-u^(1/a))*sin((sin(%pi*a)*z)/u-%pi*b);
+	/**
+	 * Ker=u^(-b/a+1/a-1)*%e^(-(cos(%pi*a)*z)/u-u^(1/a))*sin((sin(%pi*a)*z)/u-%pi*b);
+	 * @author Dimiter Prodanov
+	 *
 	 */
 	private class KerF1 implements QFunction {
 
@@ -188,8 +199,10 @@ public class GMWright implements QFunction {
 	
 	private double gm=1.0;
 	
-	/*
+	/**
 	 * 
+	 * @param aa
+	 * @param bb
 	 */
 	public GMWright(double aa,  double bb) {
 		a=aa;
@@ -199,8 +212,11 @@ public class GMWright implements QFunction {
 		
 	}
 	
-	/*
-	 * 	
+	/**
+	 * 
+	 * @param aa
+	 * @param bb
+	 * @param ttol
 	 */
 	public GMWright(double aa, double bb, double ttol) {
 		a=aa;
@@ -210,16 +226,23 @@ public class GMWright implements QFunction {
 		gm=gam.eval(b);
 	}
 
-	/*
-	 * sets the global epsilon
+ 
+	/**
+	 *  @param ge - sets the global epsilon
 	 */
 	public void setEps(double ge) {
 		geps=ge;
 	}
 	
 	
-	/*
+
+	/**
 	 * calculates the circular integral contribution
+	 * @param x
+	 * @param a
+	 * @param b
+	 * @param eps - radius
+	 * @return
 	 */
 	private double phaseint(double x, double a, double b, double eps) {
 		double ret=0;

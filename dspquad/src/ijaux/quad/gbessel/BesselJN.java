@@ -43,7 +43,7 @@ public class BesselJN implements QFunction {
 		 if (n==1)
 			fr= (x)/2.0;
 		 else {
-			 fr=pow(x/2,n);
+			 fr=pow(x/2.0,n);
 		 }
 		 return fr*dd;
 	}

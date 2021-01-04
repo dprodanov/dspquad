@@ -9,13 +9,13 @@ import ijaux.quad.gbessel.BesselJN;
 
 public class UBesselJN extends BesselJN implements UIFunction {
 	
-	private String title= "bessel_(1,x)";
+	private String title= "bessel_j(1,x)";
 	DefaultXYDataset udata =new DefaultXYDataset();
 	XYSeries series=null;
 
 	public UBesselJN(int n) {
 		super(n);
-		title= "bessel_("+n+",x)";
+		title= "bessel_j("+n+",x)";
 		series=new XYSeries(title);
 	}
 

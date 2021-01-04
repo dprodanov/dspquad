@@ -68,7 +68,7 @@ public class LambertO2 implements QFunction {
 	
 	private double principalH(double x) {
 		double w=exp(x);
-		if (abs(w)<eps) return eps;
+		if (abs(w)<eps) return w;
 		//System.out.println("w0="+w);
 		int i=0;
 		double err=2;
@@ -155,7 +155,7 @@ public class LambertO2 implements QFunction {
 	public static void main(String[] args) {
 		LambertO2 lw=new LambertO2( );
 		double x=0;
-		
+		System.out.println("principal branch");
 		x=0;
 		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
 		x=-1.0;
@@ -167,6 +167,7 @@ public class LambertO2 implements QFunction {
 		
 		x=-750.0;
 		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
+		System.out.println("non principal branch");
 		lw.setBranch(-1);
 		
 		x=-1.0;
