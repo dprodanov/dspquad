@@ -10,13 +10,13 @@ import ijaux.quad.QFunction;
 /**
  * @author prodanov
  *   
- *
+ * implements Bessel K_n(x)
  */
 public class BesselKN implements QFunction {
 
 	private int n=0;
 	private KerF qf=new KerF();
-	private double tol=1.0e-15;
+	private double tol=1.0e-16;
 	
 	private class KerF implements QFunction {
 
@@ -39,12 +39,6 @@ public class BesselKN implements QFunction {
 			return "cosh(a*u)*exp(-z*cosh(u)) ";
 		}
 		
-		/*
-		@Override
-		public double prefactor() {
-			return 1.0;
-		}
-		*/
 	}
 	
 	public BesselKN(int nn) {
@@ -64,12 +58,19 @@ public class BesselKN implements QFunction {
 
 		return value;
 	}
+	
+	@Override
+	public String toString() {
+		return "K(a,z)";
+	}
+
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		 
+		BesselKN bn= new BesselKN(0);
+		System.out.println("K0(1)="+bn.eval(1.0) +"  " +0.421024438240708333);
 		
 	}
 }
