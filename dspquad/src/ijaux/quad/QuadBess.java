@@ -1,125 +1,122 @@
 package ijaux.quad;
 
+import static ijaux.quad.QuadDE.intde;
 import static java.lang.Math.PI;
 
+import ijaux.quad.Wynn;
+import ijaux.quad.gbessel.BesselJ0;
+import ijaux.quad.gbessel.BesselKN;
 
-public class QuadBess extends QuadDE {
+/**
+ *  Hankel Transformations
+ * @author prodanov
+ *
+ */
+public class QuadBess extends QuadDE implements QFunction {
+	
+	private QFunction kernel=null;
+	
+	private BesselJ0 besselj0 =new BesselJ0();
+		
+	private double[] nzeros=null;
+	
+	AuxF qf=new AuxF();
+	
+	public double tol=1e-15;
+
+	//public static boolean debug=false;
+	
+	public QuadBess(QFunction ker, int n) {
+		kernel=ker;
+		nzeros=new double [n+1];
+		for (int k=0; k<n+1; k++)
+			nzeros[k]=bazero_j(0, k);
+		if (debug) {
+		   for (int k=0; k<nzeros.length; k++)
+			System.out.println( nzeros[k]);
+		}
+	}
+	
+	class AuxF implements QFunction {
+		
+		double z=0;
+		
+		public void setValue(double xx) {
+			z=xx;
+		}
+
+		@Override
+		public double eval(double x) {
+			double ret=besselj0.eval(x*z)*kernel.eval(x);
+			return ret;
+		}
+		
+	}
 	
  
 	/**
 	 * asymptotic zero of the BesselJ function
+	 * Lucas, Stephen & Stone, H.A.. (1995). 
+	 * Evaluating infinite integrals involving Bessel functions of arbitrary order. 
+	 * Journal of Computational and Applied Mathematics. 64. 217-231. DOI 10.1016/0377-0427(95)00142-5.
 	 * @param n - order of the function
 	 * @param k - order of the zero
 	 * @return
 	 */
 	public static double bazero_j (int n, int k) {
 		if (k<1) return 0.0;
-		else return PI*(n+k+0.75);
+		else return PI*(0+k-0.25);
 	}
 	
-	/**
-	 * cumulative sum
-	 * @param arr
-	 * @return
-	 */
-	public static double[] cumsum(final double[] arr) {
-		final double[] ret=new double[arr.length];
-		double ss=0;
-		for (int i=0; i< arr.length; i++) {
-			ss+=arr[i];
-			ret[i]=ss;
+ 
+	
+ public static boolean debug=false;
+
+	@Override
+	public double eval(double x) {
+		int nz=nzeros.length;
+		double[] seq=new double [nz-1];
+		//System.out.println("nz=" +nz);
+		qf.setValue(x);
+		for (int i=0; i<seq.length; i++) {
+		  double[] ret=intde(qf, nzeros[i]/x, nzeros[i+1]/x, tol);
+		  if (debug)
+			  System.out.println(ret[0]+ " - "+i+ " "+nzeros[i+1]);
+		  seq[i]=ret[0];
 		}
-		return ret;
+		final double val= Wynn.converge(seq);
+		// System.out.println(val);
+		return val;
 	}
-	
-	/**
-	 * The Wynn algorithm
-	 *  Wynn, P. On a Device for Computing the e m (S n ) Transformation,
-      Mathematical Tables and Other Aids to Computation 10, no. 54 (April 1956) 91.
-      DOI:10.2307/2002183.
-	 * @param arr
-	 * @return
-	 */
-	public static double[][] wynn(double[] arr) {
-		final int k=(arr.length-1)/2;
-		//System.out.println("k="+k);
-		final int n = 2*k+1;
-		double[][] ret=new double[n+1][n+1];
-		for (int i=0; i<n; i++)
-			ret[i+1][1]=arr[i];
-		for (int i=2; i<=n; i++)
-			for (int j=2; j<=i; j++)
-				ret[i][j]=ret[i-1][j-2]+1.0/(ret[i-1][j-1]-ret[i][j-1]); 
-		return ret;
-	}
-	
-	/**
-	 * 
-	 * @param arr
-	 * @return
-	 */
-	public static double[][] wynnshort(double[] arr) {
-		final int k=(arr.length-1)/2;
-		//System.out.println("k="+k);
-		final int n = 2*k+1;
-		double[][] ret=new double[n+1][];
-		ret[0]=new double[1];
-		for (int i=0; i<n; i++) {
-			ret[i+1]=new double[i+2];
-			ret[i+1][1]=arr[i];
-		}
-		for (int i=2; i<=n; i++)
-			for (int j=2; j<=i; j++) {
-				if (j>2)
-					ret[i][j]=ret[i-1][j-2]+1.0/(ret[i-1][j-1]-ret[i][j-1]); 
-				else 
-					ret[i][j]=1.0/(ret[i-1][j-1]-ret[i][j-1]); 
-			}
-		return ret;
-	}
-	
-	/**
-	 * 
-	 * @param seq
-	 * @return
-	 */
-	public static double waccelerate(double [] seq) {
-		 double[] ac= cumsum(seq);
-		 double[][] warr= wynnshort(ac);
-		 int n=warr.length-1;
-		 int m=warr[n].length-1;
-		 return warr[n][m];
-	}
-	
 
 	public static void main(String[] args) {
+	 
+		int n=20;
 		
-		System.out.println("Arc tan series for PI/4");
-		 double[] a=new double[] 
-				 {1,-0.3333333333333333,0.2,-0.1428571428571428,0.1111111111111111,-0.09090909090909091,0.07692307692307693};
-		 double[] ac= cumsum(a);
-		 
-		 for (int i=0; i<ac.length; i++)
-			 System.out.print(ac[i]+" ");
-		 System.out.println();
-		 System.out.println("--------Wynn print--------------------");
-		 double[][] warr= wynnshort(ac);
+		QFunction ker=new QFunction() {
+
+			@Override
+			public double eval(double x) {
+				return x/(1.0+x*x);
+			}
+			
+		};
 		
-		 for (int i=0; i<warr.length; i++) {
-			 for (int j=0; j<warr[i].length; j++) {
-				 System.out.print(warr[i][j]+" | ");
-			 }
-			 System.out.println("\r\n----------------------------");
-		 }
-		 int n=warr.length-1;
-		 int m=warr[n].length-1;
-		 System.out.println("PI "+ Math.PI );
-		 System.out.println("4*W  -PI");
-		 System.out.println(warr[n][m]*4.0- Math.PI );
-		 System.out.println("W  - atan(1)");
-		 double ret=waccelerate(a);
-		 System.out.println(ret- Math.atan(1.0) );
+		QuadBess qb=new	 QuadBess(  ker, n);
+		
+		
+		BesselKN bn= new BesselKN(0);
+		long time=System.currentTimeMillis();
+		double bz=bn.eval(1.0);
+		time=System.currentTimeMillis()-time;
+		System.out.println("K0(1)="+ bz+"  " +0.421024438240708333+ " time "+time+" diff "+(bz-0.421024438240708333));
+		time=System.currentTimeMillis();
+		double bz2=qb.eval(1.0);
+		time=System.currentTimeMillis()-time;
+		System.out.println("K0(1)="+ bz2+"  " +0.421024438240708333+ " time "+time+" diff "+(bz2-0.421024438240708333));
+		
 	}
+
 	
 	
 	
