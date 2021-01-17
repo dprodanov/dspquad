@@ -59,4 +59,20 @@ public class Utils {
 		if (abs(a-b)<=eps) return true;
 		return false;
 	}
+	
+	
+	/**
+	 * cumulative sum
+	 * @param arr
+	 * @return
+	 */
+	public static double[] cumsum(final double[] arr) {
+		final double[] ret=new double[arr.length];
+		double ss=0;
+		for (int i=0; i< arr.length; i++) {
+			ss+=arr[i];
+			ret[i]=ss;
+		}
+		return ret;
+	}
 }
