@@ -1,6 +1,6 @@
 package ijaux.quad.gbessel;
 
-import static ijaux.quad.QuadDE.intdei;
+//import static ijaux.quad.QuadDE.intdei;
 import static ijaux.quad.QuadDE.intdeo;
 import static java.lang.Math.*;
 
@@ -85,7 +85,6 @@ public class GBesselK2 implements QFunction {
 
 		return value;
 	}
-
 
 
 	@Override
