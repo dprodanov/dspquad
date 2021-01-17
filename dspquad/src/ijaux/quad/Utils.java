@@ -1,5 +1,7 @@
 package ijaux.quad;
 
+import static java.lang.Math.abs;
+
 public class Utils {
 	
 	/*
@@ -44,5 +46,17 @@ public class Utils {
 			ret= z;			
 		}
 		return ret;
+	}
+	
+	/**
+	 * Approximate equality
+	 * @param a
+	 * @param b
+	 * @param eps - allowed error bond
+	 * @return
+	 */
+	public static boolean apperoxeq(double a, double b, double eps) {
+		if (abs(a-b)<=eps) return true;
+		return false;
 	}
 }

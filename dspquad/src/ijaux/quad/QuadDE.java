@@ -38,7 +38,7 @@ for the tanh-sinh (double exponential) method
  */
 
 
-	public class QuadDE {
+public class QuadDE {
 		
 	public static final String version="1.0";
 
