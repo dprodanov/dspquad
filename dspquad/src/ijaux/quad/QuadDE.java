@@ -5,7 +5,7 @@ import static java.lang.Math.*;
 
 /*
  	Courtesy to Prof. Takuya Ooura
- 	Library for computation of speial functions
+ 	Library for computation of special functions
  	and numerical integration
  	
 The code is based in mostly on
