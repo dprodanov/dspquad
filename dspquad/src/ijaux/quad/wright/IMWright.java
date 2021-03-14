@@ -38,7 +38,6 @@ public class IMWright implements QFunction {
 
 		@Override
 		public String toString() {
-			// TODO Auto-generated method stub
 			return "(exp(-cos(PI*a)*u*z-1/(u^1/a))*sin(sin(PI*a)*u*z))/u";
 		}
 		

@@ -122,7 +122,7 @@ public class ISR implements QFunction {
 			df=iq_plus.eval(w);
 			//System.out.println(w+" "+arg+" "+da+" "+df);
 			if (Double.isNaN(df) || Double.isNaN(da))  {
-				System.out.println("df "+df+ " da "+da+" w "+w);
+				//System.out.println("df "+df+ " da "+da+" w "+w);
 				return Double.NaN;
 			}
 			 
@@ -154,7 +154,7 @@ public class ISR implements QFunction {
 			df=iq_minus.eval(w);
 			//System.out.println(w+" "+arg+" "+da+" "+df);
 			if (Double.isNaN(df) || Double.isNaN(da))  {
-				System.out.println("df "+df+ " da "+da+" w "+w);
+				//System.out.println("df "+df+ " da "+da+" w "+w);
 				return Double.NaN;
 			}
 			w+=w*(da+1.0)*(df-g*x);

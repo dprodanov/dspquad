@@ -41,8 +41,9 @@ public class IS6PlotDemo implements IFChart {
 		// TODO Auto-generated constructor stub
 	}
 
-	LambertW ww=new   LambertW();
+//	LambertW ww=new   LambertW();
 	
+	private double tol=1e-8;
 	//////////////////
 	// Approximation
 	/////////////////
@@ -57,19 +58,26 @@ public class IS6PlotDemo implements IFChart {
 			aa=a;
 		}
 
-		private final double c1=Math.cosh(1);
-		private final double s1=Math.sinh(1);
+		//private final double c1=Math.cosh(1);
+		//private final double s1=Math.sinh(1);
 		
-		private final double a=c1*c1*c1/s1;
+		//private final double a=c1*c1*c1/s1;
+		
+
 
 		@Override
 		public double eval(double x) {
-			double bb=gg*log(gg)-gg+aa;
+			//double bb=gg*log(gg)-gg+aa;
 			
-			double cc=ww.eval( aa*log(aa+1))*gg/2;
-			double d=cosh(exp(-cc*x));
-			double w= a*(exp(-cc*x)*sinh(exp(-cc*x)))/ (d*d*d);
-			return bb*w;
+			//double cc=ww.eval( aa*log(aa+1))*gg/2;
+			//double d=cosh(exp(-cc*x));
+			//double w= a*(exp(-cc*x)*sinh(exp(-cc*x)))/ (d*d*d);
+			final double bb=gg*log(gg)-gg+aa;
+			double cc= gg/bb*(1.0- exp(- bb*x)) - gg*x;
+			
+			return Math.max(bb*exp(cc),tol);
+			
+			//return bb*w;
 		}
 		
 		/*
@@ -88,8 +96,8 @@ public static void main(String[] args) {
 
 		
 	IS6PlotDemo ip=new IS6PlotDemo();
-	double a=6.0;
-	double g=2.0;
+	double a=6.5;
+	double g=2;
 	double bb=g*log(g)-g+a;
 	
 	//LambertW ww=new   LambertW();
@@ -105,9 +113,9 @@ public static void main(String[] args) {
 				public void run() {
 			    	
 			    	
-			    	IS6 lwa=new IS6(g, a );		
+			    	IS6 lwa=new IS6(g,  bb);		
 	
-			    	UPlotter plotter=new UPlotter("IS6(g="+g+" a="+a+")", lwa);
+			    	UPlotter plotter=new UPlotter("IS6(g="+g+" a="+bb+")", lwa);
 				
 			    	ISR lwa2=new ISR(g, a );		
 			    	//lwa.setBranch(0);
@@ -124,13 +132,13 @@ public static void main(String[] args) {
 			        frame.setVisible(true);
 			         XYSeriesCollection dataset = new XYSeriesCollection();
 			      
-			        XYSeries ds1 = plotter.dataset(-3, 8, 350);
+			        XYSeries ds1 = plotter.dataset(-2, 5, 250);
 			        dataset.addSeries(ds1);
 			        
-			        XYSeries ds2 = plotter2.dataset(-3, 8, 350);
+			        XYSeries ds2 = plotter2.dataset(-2, 5, 250);
 			        dataset.addSeries(ds2);
  
-			        XYSeries ds3 = plotter3.dataset(-3, 8, 350);
+			        XYSeries ds3 = plotter3.dataset(-2, 5, 250);
 			        dataset.addSeries(ds3);
 			        
 			          JFreeChart chart = ChartFactory.createXYLineChart("SIR, Representation 2",
