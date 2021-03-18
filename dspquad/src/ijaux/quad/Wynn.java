@@ -99,8 +99,6 @@ public class Wynn  {
 		 System.out.println("4*W  -PI");
 		 System.out.println(warr[n][m]*4.0- Math.PI );
 		 System.out.println("W  - atan(1)");
-		// double ret=converge(a);
-		// System.out.println(ret- Math.atan(1.0) );
 		
 	}
 

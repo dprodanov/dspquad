@@ -94,6 +94,9 @@ public static void main(String[] args) {
 	   ret=intdeo(f2, 0.0, 1.0, 1.0e-15);
 	   System.out.println (" I_4="+ ret[0]+"\t, err= "+ret[1]+ "\t, "+PI/2.0);
 	   
+	   ret=intdei(f2, 0.0,   1.0e-15);
+	   System.out.println (" I_4="+ ret[0]+"\t, err= "+ret[1]+ "\t, "+PI/2.0);
+	   
 	   // Euler Gamma constant
 	   EGammaC fg=new EGammaC();
 	   System.out.println("\nI_5=-\\int_0^\\infty epx(-x) log(x) dx\n");
