@@ -21,7 +21,7 @@ public static void main(String[] args) {
 
     SwingUtilities.invokeLater(new Runnable() {
     	
-    	GMWrightPlot1 ip= new GMWrightPlot1();
+    	//GMWrightPlot1 ip= new GMWrightPlot1();
     	
         @Override
 		public void run() {
