@@ -33,7 +33,7 @@ public class Legendre  implements QFunction {
 	 * integral kernel function
 	 */
 	private class Ker implements QFunction {
-		public double val=0.5;
+		public double val=1.;
 		
 		public void setVal(double v) {
 			val=v;
@@ -41,12 +41,12 @@ public class Legendre  implements QFunction {
 		
 		@Override
 		public double eval(double x) {
-			double cc=1.0;
+			double p=1.;
 			if (abs(val)>1.0)  {
-				cc= val + sqrt(val*val-1) *cos(x);
-				for (int i=1; i<n;i++)  {cc*=cc;};
+				final double cc= val + sqrt(val*val-1.) *cos(x);
+				for (int i=0; i<n;i++)  {p*=cc;};
 			} 
-			return  cc;
+			return  p;
 		}
 
 		@Override
@@ -67,16 +67,16 @@ public class Legendre  implements QFunction {
 		
 		@Override
 		public double eval(double x) {
-			double cc=1.0;
+			double p=1.;
 			if (abs(val)<1.0) {
 				final double v2=val*val;
 				final double c2=cos(2.*x);
-				cc= sqrt( (1.+ v2 + (1.-v2) * c2)/2.) ;
-				for (int i=1; i<n;i++)  {cc*=cc;};
-				final double p=cos(n*atan2(cos(x)*sqrt(1.-v2),val));
-				return cc*p;
+				final double cc= sqrt( (1.+ v2 + (1.-v2) * c2)/2.) ;
+				p=cos(n*atan2(cos(x)*sqrt(1.-v2),val));
+				for (int i=0; i<n;i++)  {p*=cc;};
+				return p;
 			}
-			return cc;
+			return p;
 		}
 
 		@Override
@@ -101,7 +101,7 @@ public class Legendre  implements QFunction {
 	@Override
 	public double eval(double x) {
 		if (n==0) return 1.0; 
-		if (abs(x)==1.0) return 1.0;
+		if ((x)==1.) return x;
 		if (abs(x)>1.0) {
 			qf.setVal(x);
 			final double[] ret=intde(qf, 0, PI, tol);
