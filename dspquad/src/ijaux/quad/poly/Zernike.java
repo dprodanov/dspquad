@@ -42,7 +42,7 @@ public class Zernike  implements QFunction {
 
 		@Override
 		public String toString() {
-			return "cos (m * phi) * sin ( (n+1) * acos (r * cos( phi)) / sin (acos (r * cos( phi)) ";
+			return "cos(m * phi) * sin ( (n+1) * acos (r * cos( phi))) / sin (acos (r * cos( phi)))";
 		}
 	}
 	
@@ -63,8 +63,8 @@ public class Zernike  implements QFunction {
 	public double eval(double x) {
 		if (x==1.0) return 1.0;
 		qf.setVal(x);
-		final double[] ret=intde(qf, 0.0, 2*PI, tol);
-		value=ret[0]/(2*PI);
+		final double[] ret=intde(qf, 0.0, 2.*PI, tol);
+		value=ret[0]/(2.*PI);
 		return value;
 	}
 

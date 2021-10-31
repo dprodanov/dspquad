@@ -1,5 +1,4 @@
-package test.plot;
-
+package test.plot.poly;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -8,14 +7,15 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import ijaux.quad.Utils;
-import ijaux.quad.plot.ULegendre;
+import ijaux.quad.plot.UZernike;
  
  
-public class LegendrePlotDemo {
+public class ZernikePlotDemo {
 
 public static void main(String[] args) {
 
@@ -29,26 +29,26 @@ public static void main(String[] args) {
             frame.setVisible(true);
             
             final XYSeriesCollection dataset = new XYSeriesCollection();
-   
-            XYSeries ds1 = LegDataset(-2.0, 2.0, 150, 1);
+            
+            XYSeries ds1 = ZernikePoly(0, 1, 150, 2, 0 );
             dataset.addSeries(ds1);
            
-            XYSeries ds2 = datasetL1(-2.0, 2.0, 150);
+            XYSeries ds2 = datasetZ20(0, 1, 150);
             dataset.addSeries(ds2);
-         
-            XYSeries ds3 = LegDataset(-2.0, 2.0, 150, 2);
+
+            XYSeries ds3 = ZernikePoly(0, 1, 150, 4, 0 );
             dataset.addSeries(ds3);
-           
-            XYSeries ds4 = datasetL2(-2.0, 2.0, 150);
+            
+            XYSeries ds4 = datasetZ40(0, 1, 150);
             dataset.addSeries(ds4);
-   
-            XYSeries ds5 = LegDataset(-2.0, 2.0, 150, 3);
+            
+            XYSeries ds5 = ZernikePoly(0, 1, 150, 4, 2 );
             dataset.addSeries(ds5);
             
-            XYSeries ds6 = datasetL3(-2.0, 2.0, 150);
+            XYSeries ds6 = datasetZ42(0, 1, 150);
             dataset.addSeries(ds6);
-            
-            JFreeChart chart2 = ChartFactory.createXYLineChart("Legendre Plot",
+     
+            JFreeChart chart2 = ChartFactory.createXYLineChart("Zernike Plot",
                     "x", "y", dataset, PlotOrientation.VERTICAL, true, true,
                     false);
             
@@ -60,18 +60,19 @@ public static void main(String[] args) {
 
 }
  
-	private static XYSeries LegDataset(double x0, double xn, int npoints, int ord) {
+	private static XYSeries ZernikePoly(double x0, double xn, int npoints, int n, int m) {
 		
-		ULegendre fn=new ULegendre(ord);
+		UZernike fn=new UZernike(n, m);
 	    
 		fn.compute(x0, xn, npoints);
 	
 	    return fn.getSeries();
 	}
 	
-private static XYSeries datasetL1( double x0, double xn, int npoints) {
+	
+	private static XYSeries datasetZ40( double x0, double xn, int npoints) {
 		
-		XYSeries series=new XYSeries("x");
+		XYSeries series=new XYSeries("6*r^4-6*r^2+1");
  
 		double[][] data = new double[2][]; //{ {0.1, 0.2, 0.3}, {1, 2, 3} };
  		 
@@ -79,18 +80,17 @@ private static XYSeries datasetL1( double x0, double xn, int npoints) {
 	    data[0]=xx;
 	    double[] yy=new double[xx.length];
 	    for (int i=0; i<xx.length; i++) {
-	    	 
-    		yy[i]= xx[i];
+	    	double r2=xx[i]*xx[i];
+    		yy[i]= 6.*r2*r2-6.*r2+1. ;
 	    	series.add(xx[i], yy[i]);
 	    }
 	    data[1]=yy;
 		    return  series;
 	}
 	
-
-	private static XYSeries datasetL2( double x0, double xn, int npoints) {
+private static XYSeries datasetZ42( double x0, double xn, int npoints) {
 		
-		XYSeries series=new XYSeries("(3*x^2-1)/2");
+		XYSeries series=new XYSeries("4*r^4-3*r^2");
  
 		double[][] data = new double[2][]; //{ {0.1, 0.2, 0.3}, {1, 2, 3} };
  		 
@@ -98,18 +98,17 @@ private static XYSeries datasetL1( double x0, double xn, int npoints) {
 	    data[0]=xx;
 	    double[] yy=new double[xx.length];
 	    for (int i=0; i<xx.length; i++) {
-	    	 
-    		yy[i]= .5* (3.*xx[i]*xx[i] - 1.);
+	    	double r2=xx[i]*xx[i];
+    		yy[i]= 4.*r2*r2-3.*r2 ;
 	    	series.add(xx[i], yy[i]);
 	    }
 	    data[1]=yy;
 		    return  series;
 	}
 	
-	
-	private static XYSeries datasetL3( double x0, double xn, int npoints) {
+	private static XYSeries datasetZ20( double x0, double xn, int npoints) {
 		
-		XYSeries series=new XYSeries("(5*x^3-3*x)/2");
+		XYSeries series=new XYSeries("2*r^2-1");
  
 		double[][] data = new double[2][]; //{ {0.1, 0.2, 0.3}, {1, 2, 3} };
  		 
@@ -117,8 +116,8 @@ private static XYSeries datasetL1( double x0, double xn, int npoints) {
 	    data[0]=xx;
 	    double[] yy=new double[xx.length];
 	    for (int i=0; i<xx.length; i++) {
-	    	 
-    		yy[i]= .5* (5.*xx[i]*xx[i]*xx[i] - 3.*xx[i]);
+	    	double r2=xx[i]*xx[i];
+    		yy[i]= 2.*r2- 1. ;
 	    	series.add(xx[i], yy[i]);
 	    }
 	    data[1]=yy;
