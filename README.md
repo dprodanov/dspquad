@@ -14,3 +14,7 @@ These include
 
 * Wright function
 
+* Zernike polynomials
+
+* Legendre polynomials
+
