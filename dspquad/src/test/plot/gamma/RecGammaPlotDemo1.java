@@ -12,7 +12,7 @@ import org.jfree.data.xy.XYDataset;
 import ijaux.quad.plot.URGamma;
  
  
-public class GammaPlotDemo3 {
+public class RecGammaPlotDemo1 {
 
 public static void main(String[] args) {
 

@@ -60,22 +60,7 @@ public class IS6 implements QFunction {
 		}	 
 	}
 
-/*
-	private double approx(double x, double g, double a) {
-		double bb=g*log(g)-g+a;
-		double cc=1.0;
-		if (g>=1.0)
-			cc=sqrt(2.0*bb*g);
-		else
-			cc=sqrt(1/E*2.0*bb*g*2.0);
-		
-		if (x>0) cc=cc/sqrt(E);
-	
-		double w=bb*exp(1.0-exp(-x*cc)-x*cc);
-		return w;
-	}
-	*/
-	
+
 	//private final double c1=Math.cosh(1);
 	//private final double s1=Math.sinh(1);
 	

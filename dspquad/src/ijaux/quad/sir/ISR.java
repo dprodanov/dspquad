@@ -13,6 +13,11 @@ import static java.lang.Math.sinh;
 import static java.lang.Math.tanh;
 import static java.lang.Math.E;
 
+/**
+ * 
+ * @author prodanov
+ * McKendrick approximation
+ */
 public class ISR implements QFunction {
 
 	private final InvI3 iq_plus=new InvI3();

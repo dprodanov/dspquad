@@ -25,6 +25,7 @@ import ijaux.quad.plot.IFChart;
 import ijaux.quad.plot.UPlotter;
 import ijaux.quad.sir.IS1;
 import ijaux.quad.sir.IS2;
+import ijaux.quad.sir.IS6;
 import ijaux.quad.sir.ISR;
 import ijaux.quad.sir.RIS;
 import ijaux.quad.sir.SIR;
@@ -49,8 +50,8 @@ public static void main(String[] args) {
 	        @Override
 			public void run() {
 	        	
-	        	ISR lwa2=new ISR(g, a );		
-	        	
+	        	//ISR lwa2=new ISR(g, a );		
+	        	IS6 lwa2=new IS6(g, a );
 	        	RIS lwa3=new RIS(g, a );		
 	        	SIR lwa=new SIR(g, a );		
 	  
@@ -59,7 +60,6 @@ public static void main(String[] args) {
 	        	
 	        	
 	        	UPlotter plotter=new UPlotter("Susceptible", lwa);
-
 	        		        	
 	        	UPlotter plotter2=new UPlotter("Recovered", lwa3 );
 	        	
@@ -67,25 +67,36 @@ public static void main(String[] args) {
 	        	
 	            JFrame frame = new JFrame("Charts");
 
-	            frame.setSize(600, 400);
+	            frame.setSize(800, 600);
 	            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	            frame.setVisible(true);
 	             XYSeriesCollection dataset = new XYSeriesCollection();
-	          
-	            XYSeries ds1 = plotter.dataset(x0, x1, 300);
-	            dataset.addSeries(ds1);
 	            
-	            XYSeries ds2 = plotter2.dataset(x0, x1, 300);
-	            dataset.addSeries(ds2);
-	            
-	            XYSeries ds3 = plotter3.dataset(x0, x1, 300);
-	            dataset.addSeries(ds3);
- 
+		            //I
+		            XYSeries ds3 = plotter3.dataset(x0, x1, 300);
+		            dataset.addSeries(ds3);
+		            
+		            // R
+		             XYSeries ds2 = plotter2.dataset(x0, x1, 300);
+		             dataset.addSeries(ds2);
+		             
+	             // S
+		            XYSeries ds1 = plotter.dataset(x0, x1, 300);
+		            dataset.addSeries(ds1);
+	
+		            
+	   
+	      
+	        
+	      
+	        
+	        
 	              JFreeChart chart2 = ChartFactory.createXYLineChart("SIR Model",
 	                    "time", "number", dataset, PlotOrientation.VERTICAL, true, true,
 	                    false);
 	              XYPlot plot= (XYPlot) chart2.getPlot();
 	            plot.setBackgroundPaint(Color.WHITE);
+	
 	            plot.setRangeGridlinesVisible( false );
 	            NumberAxis domain = (NumberAxis) plot.getDomainAxis();
 	       

@@ -8,18 +8,24 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
+import org.jtikz.TikzGraphics2D;
 
 import ijaux.quad.plot.ULogGamma;
  
  
-public class GammaPlotDemo2 {
+public class LogGammaPlotDemo1 {
 
 public static void main(String[] args) {
-
+	
+ 
+ 
     SwingUtilities.invokeLater(new Runnable() {
+    	
+    	
         @Override
 		public void run() {
-            JFrame frame = new JFrame("Charts");
+        	TikzGraphics2D t = new TikzGraphics2D();
+        	JFrame frame = new JFrame("Charts");
 
             frame.setSize(600, 400);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,10 +39,14 @@ public static void main(String[] args) {
             
             ChartPanel cp = new ChartPanel(chart2);
            
-            frame.getContentPane().add(cp);
+           frame.getContentPane().add(cp);
+           t.paintSync(frame);
+           t.close();
+            
+           
         }
     });
-
+    
 }
  
 	private static XYDataset logGammaDataset(double x0, double xn, int npoints) {

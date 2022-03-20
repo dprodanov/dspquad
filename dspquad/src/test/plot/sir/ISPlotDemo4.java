@@ -25,6 +25,7 @@ import ijaux.quad.plot.IFChart;
 import ijaux.quad.plot.UPlotter;
 import ijaux.quad.sir.IS1;
 import ijaux.quad.sir.IS2;
+import ijaux.quad.sir.IS6;
 import ijaux.quad.sir.ISR;
 import ijaux.quad.sir.RIS;
 import ijaux.quad.sir.SIR;
@@ -49,7 +50,7 @@ public static void main(String[] args) {
 	        @Override
 			public void run() {
 	        	
-	        	ISR lwa2=new ISR(g, a );		
+	        	IS6 lwa2=new IS6(g, a );		
 	        	
 	        	RIS lwa3=new RIS(g, a );		
 	        	SIR lwa=new SIR(g, a );		
