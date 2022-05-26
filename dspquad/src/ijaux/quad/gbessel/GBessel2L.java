@@ -45,13 +45,12 @@ public class GBessel2L implements QFunction {
 
 		@Override
 		public String toString() {
-			//return " exp(-k^a)*(J_0 ( k r) -J_2 ( k r) )  k^3 ";
 			return " exp(-k^a)* J_0 ( k r) * k^3 ";
 		}
 		
 		@Override
 		public double prefactor() {
-			return -2/ga*a;
+			return -2.0/ga*a;
 		}
 		
 	}

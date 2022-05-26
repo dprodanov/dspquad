@@ -39,7 +39,7 @@ public static void main(String[] args) {
            dataset.addSeries(ds3);
  
            
-            JFreeChart chart2 = ChartFactory.createXYLineChart("Fractional Laplacian Plot",
+            JFreeChart chart2 = ChartFactory.createXYLineChart("Laplacian of the Riesz kernel Plot",
                     "x", "y", dataset, PlotOrientation.VERTICAL, true, true,
                     false);
             
@@ -61,7 +61,7 @@ private static XYSeries dataset2(double a, double x0, double xn, int npoints) {
 	    return uen.getSeries();
 	}
 	
-	
+/*	
 private static XYSeries datasetPoiss( double x0, double xn, int npoints) {
 	
 	XYSeries series=new XYSeries("(3*(3*x^2-2))/(x^2+1)^(7/2)");
@@ -80,7 +80,7 @@ private static XYSeries datasetPoiss( double x0, double xn, int npoints) {
     data[1]=yy;
 	    return  series;
 }
-	
+	*/
 	
 	
 

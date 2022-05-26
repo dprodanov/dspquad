@@ -13,7 +13,7 @@ import ijaux.quad.euler.Gamma;
 
 M-Wirght kernels
 
-\frac{1}{2 \pi  }\int_{0}{\infty} exp( - k^a)*J_0 ( k r)  k d k
+\frac{1}{2 \pi  }\int_{0}{\infty} exp( - k^(2*a)*J_0 ( k r)  k d k
  
  
 */
@@ -44,7 +44,7 @@ public class GBessel implements QFunction {
 
 		@Override
 		public String toString() {
-			return " exp(-k^a)*J_0 ( k r)  k ";
+			return " exp(-k^(2*a)*J_0 ( k r)  k ";
 		}
 		
 		@Override
