@@ -53,7 +53,7 @@ public class GBessel1 implements QFunction {
 		@Override
 		public double prefactor() {
 			//return -2/ga*a;
-			return 4/ga*a/z;
+			return 2./ga*a/z;
 		}
 		
 	}
@@ -118,7 +118,7 @@ public class GBessel1 implements QFunction {
 
 	@Override
 	public String toString() {
-		return "M(a,z)";
+		return "N(a,z)";
 	}
 
 }
