@@ -68,7 +68,7 @@ class SincF implements QFunction {
 	}
 }
 
-public class QddeTest1 {
+public class QddeTestGamma {
 	
 	
 public static void main(String[] args) {
