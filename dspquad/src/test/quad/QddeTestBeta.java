@@ -36,18 +36,18 @@ public class QddeTestBeta {
 	
 	
 	
-public static void main(String[] args) {
-	 Beta bf= new Beta();
-	 double ret=bf.eval (0.5, 2.5);
-	 System.out.println(" beta(1/2,1/2*(k+1)), k=4  3 \\pi/8");
-	 System.out.println (" I_4="+ ret+"\t, "+  (3.0 *PI)/8.0 );
-	 
-	 SinF f= new SinF(4.0);
-		
-	double[]	ret2=intde(f, 0.0, PI, 1.0e-15);
-		   System.out.println (" I_2="+ ret2[0]+"\t, err= "+ret2[1]+ "\t, "+ret);
-		   
-
-}
+	public static void main(String[] args) {
+		 Beta bf= new Beta();
+		 double ret=bf.eval (0.5, 2.5);
+		 System.out.println(" beta(1/2,1/2*(k+1)), k=4  3\\pi/8");
+		 System.out.println (" I_4="+ ret+"\t, "+  (3.0 *PI)/8.0 );
+		 
+		 SinF f= new SinF(4.0);
+			
+		double[]	ret2=intde(f, 0.0, PI, 1.0e-15);
+			   System.out.println (" I_2="+ ret2[0]+"\t, err= "+ret2[1]+ "\t, "+ret);
+			   
+	
+	}
 	 
 }
