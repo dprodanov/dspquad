@@ -88,11 +88,11 @@ public class QuadDE {
 			final double epsh = sqrt(efs * eps);
 			final double h0 = hoff / epsln;
 			final double ehp = exp(h0);
-			final double ehm = 1.0 / ehp;
+			final double ehm = 1. / ehp;
 			final double epst = exp(-ehm * epsln);
 			final double ba = b - a;
 			double ir = f.eval((a + b) * 0.5) * (ba * 0.25);
-			double i = ir * (2.0 * pi2);
+			double i = ir * (2. * pi2);
 			double err = abs(i) * epst;
 			//double f1=0, f2=0;
 			double h = 2 * h0;
@@ -106,7 +106,7 @@ public class QuadDE {
 					ep = pi2 * em;
 					em = pi2 / em;
 					do {
-						xw = 1.0 / (1.0 + exp(ep - em));
+						xw = 1. / (1. + exp(ep - em));
 						xa = ba * xw;
 						wg = xa * (1 - xw);
 						
@@ -127,9 +127,9 @@ public class QuadDE {
 				} while (t < h0);
 				if (m == 1) {
 					errh = (err / epst) * epsh * h0;
-					errd = 1.0 + 2.0 * errh;
+					errd = 1. + 2. * errh;
 				} else {
-					errd = h * (abs(i - 2.0 * iback) + 4.0 * abs(ir - 2.0 * irback));
+					errd = h * (abs(i - 2. * iback) + 4. * abs(ir - 2. * irback));
 				}
 				h *= 0.5;
 				m *= 2;
@@ -138,7 +138,7 @@ public class QuadDE {
 			if (errd > errh) {
 				err = -errd * m;
 			} else {
-				err = errh * epsh * m / (2.0 * efs);
+				err = errh * epsh * m / (2. * efs);
 			}
 			return new double[] {i, err};
 		}
@@ -184,11 +184,11 @@ public class QuadDE {
 
 			//pi4 = atan(1.0);
 			final double pi4 = 0.25*PI;
-			final double epsln = 1 - log(efs * eps);
+			final double epsln = 1. - log(efs * eps);
 			epsh = sqrt(efs * eps);
 			h0 = hoff / epsln;
 			ehp = exp(h0);
-			ehm = 1 / ehp;
+			ehm = 1. / ehp;
 			epst = exp(-ehm * epsln);
 			ir = f.eval(a + 1);
 
@@ -227,9 +227,9 @@ public class QuadDE {
 				} while (t < h0);
 				if (m == 1) {
 					errh = (err / epst) * epsh * h0;
-					errd = 1 + 2 * errh;
+					errd = 1 + 2. * errh;
 				} else {
-					errd = h * (abs(i - 2 * iback) + 4 * abs(ir - 2 * irback));
+					errd = h * (abs(i - 2. * iback) + 4. * abs(ir - 2. * irback));
 				}
 				h *= 0.5;
 				m *= 2;
@@ -239,7 +239,7 @@ public class QuadDE {
 			if (errd > errh) {
 				err = -errd * m;
 			} else {
-				err = errh * epsh * m / (2 * efs);
+				err = errh * epsh * m / (2. * efs);
 			}
 			
 			return new double[] {i, err};
@@ -288,16 +288,16 @@ public class QuadDE {
 
 			//pi4 = atan(1.0);
 			final double pi4 = 0.25*PI;
-			final double epsln = 1 - log(efs * eps);
+			final double epsln = 1. - log(efs * eps);
 			final double epsh = sqrt(efs * eps);
 			final int n = (int) (enoff * epsln);
-			final double frq4 = abs(omega) / (2 * pi4);
-			final double per2 = 4 * pi4 / abs(omega);
+			final double frq4 = abs(omega) / (2. * pi4);
+			final double per2 = 4. * pi4 / abs(omega);
 			double pq = pqoff / epsln;
 			double pp = ppoff - log(pq * pq * frq4);
-			final double ehp = exp(2 * pq);
-			final double ehm = 1 / ehp;
-			double xw = exp(pp - 2 * pi4);
+			final double ehp = exp(2. * pq);
+			final double ehm = 1. / ehp;
+			double xw = exp(pp - 2. * pi4);
 
 			double i = f.eval(a + sqrt(xw * (per2 * 0.5)));
 			double ir = i * xw;
@@ -340,7 +340,7 @@ public class QuadDE {
 					while (abs(fm) > err) {
 						xw = exp(pp - ep - em);
 						xa = xw / tk * 0.5;
-						wg = xa * (1.0 / tk + 2 * pq * (ep - em));
+						wg = xa * (1.0 / tk + 2. * pq * (ep - em));
 						fm = f.eval(a + xa);
 						ir += fm * xw;
 						fm *= wg;
@@ -383,9 +383,9 @@ public class QuadDE {
 					t += h;
 				} while (t < 1);
 				if (m == 1) {
-					errd = 1.0 + 2.0 * errh;
+					errd = 1. + 2. * errh;
 				} else {
-					errd = h * (abs(i - 2.0 * iback) + pq * abs(ir - 2.0 * irback));
+					errd = h * (abs(i - 2. * iback) + pq * abs(ir - 2. * irback));
 				}
 				h *= 0.5;
 				m *= 2;
@@ -468,7 +468,7 @@ public class QuadDE {
 	        final double m= (a+b)*0.5;
 	        final double fm=f.eval(m);
 	        // regula falsi splitting
-	        final double c= m + h/4.0*((fb-fa)/(fm-fa)- (fb-fa)/(fb-fm));
+	        final double c= m + h/4.*((fb-fa)/(fm-fa)- (fb-fa)/(fb-fm));
 	        //final double c = (a + b) *0.5;
 	        final double d = (a + c) *0.5;
 	        final double e = (b + c) *0.5;
@@ -477,8 +477,8 @@ public class QuadDE {
 	        double fc=0;
 	        try {
 	          fc=f.eval(c);
-	          Q1 = h/6.0  * (fa + 4.0*fc + fb);
-	          Q2 = h/12.0 * (fa + 4.0*f.eval(d) + 2.0*fc + 4.0*f.eval(e) + fb);
+	          Q1 = h/6.0  * (fa + 4.*fc + fb);
+	          Q2 = h/12.0 * (fa + 4.*f.eval(d) + 2.*fc + 4.*f.eval(e) + fb);
 	        } catch (RuntimeException ex) {
 	        	return 0.0;
 	        }
