@@ -29,11 +29,11 @@ public static void main(String[] args) {
 
             final XYSeriesCollection dataset = new XYSeriesCollection();
        
-           XYSeries ds1 = dataset(0.5, -1.0, 3, 301);
+           XYSeries ds1 = dataset(0.5, -3.0, 0, 301);
            dataset.addSeries(ds1);
-           XYSeries ds2 = dataset(0.66667, -1.0, 3, 301);
+           XYSeries ds2 = dataset(0.66667, -3.0, 0, 301);
            dataset.addSeries(ds2);
-           XYSeries ds3 = dataset(0.75, -1.0, 3, 301);
+           XYSeries ds3 = dataset(0.75, -3.0, 0, 301);
            dataset.addSeries(ds3);
                   
             JFreeChart chart2 = ChartFactory.createXYLineChart("ML1 Plot, a>0",

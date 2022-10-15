@@ -21,7 +21,7 @@ import ijaux.quad.euler.Gamma;
  */
 public class MiLe1 implements QFunction {
 	
-	public final static double TWOPI=2*PI;
+	public final static double TWOPI=2.*PI;
 	
 	double z=0;
 	double a=0;
@@ -39,12 +39,7 @@ public class MiLe1 implements QFunction {
 	//  Integral Kernels
 	////////////////////////
 	
-	/*	
-	private double sgn (double z) {
-		if (z>=0) return 1.0;
-		else return -1.0;
-	}
-	*/
+
 	/*
 	 * Ker=(r^(1/a)*%e^(-r^(1/a)))/(z^2-2*cos(%pi*a)*r*z+r^2)
 	 */
@@ -128,10 +123,7 @@ public class MiLe1 implements QFunction {
 		a=aa;
 		fr=sin(PI*aa)*fr;
 		gm=1/gam.eval(aa);
-		//
-		//int n=((int)aa);
-		//en=new En(n);
-		//System.out.println(en.printCoeff());
+		
 	}
 	
 	private double fr=1/PI;
@@ -144,9 +136,7 @@ public class MiLe1 implements QFunction {
 		tol=ttol;
 		fr=sin(PI*aa)*fr;
 		gm=1/gam.eval(aa);
-		//int n=((int)aa);
-		//en=new En(n);
-		//System.out.println(en.printCoeff());
+
 	}
 	
 	/*
@@ -177,26 +167,13 @@ public class MiLe1 implements QFunction {
 		double delta=256.0;
 		z=x;
 		if (a==0) return 0;
-		//if (x==0) return gm;
-		//if (a==1) return exp(x); 
 		double eps=16;
 	
 			if (abs(z)>=1/2) {
 				
 				eps=abs(delta*z/(delta-1));
-				
-				/*
-				double dd=max(delta*delta*(cos(2*a*PI)-1)/2+delta, 0);
-				eps=max(delta*cos(PI*a)*z/(delta-1)-sqrt(dd)*z/(delta-1), 
-						delta*cos(PI*a)*z/(delta-1)+sqrt(dd)*z/(delta-1)
-					);
-				
-				double dd= max( delta-0.5*(1-cos(2*PI*a) )*z*z, 0);
-				eps=max(abs(cos(PI*a)*z-sqrt(dd)), 
-						abs(cos(PI*a)*z+sqrt(dd))
-					);
-				*/
-			//	System.out.println(dd+" "+ eps); 
+	
+		
 				eps=pow(eps, 1/a);
 				eps=min(eps, 16);
 				eps=max(eps, 12);

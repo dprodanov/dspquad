@@ -18,7 +18,7 @@ public class UMiLe1 extends MiLe1 implements UIFunction {
 	
 	public UMiLe1(double aa) {
 		super(aa);
-		title=title+" ("+aa +", "+aa+")";
+		title=title+" ("+aa +", "+1+")";
 		series=new XYSeries(title);
 		udata = new DefaultXYDataset();
 	}

@@ -20,7 +20,7 @@ import ijaux.quad.euler.Gamma;
  */
 public class MiLe2 implements QFunction {
 	
-	public final static double TWOPI=2*PI;
+	public final static double TWOPI=2.*PI;
 	
 	double z=0;
 	double a=1.0;
@@ -115,7 +115,7 @@ public class MiLe2 implements QFunction {
 	public MiLe2(double aa, double bb) {
 		a=aa;
 		b=bb;
-		Gamma gam=new Gamma();
+		//Gamma gam=new Gamma();
 		//gm=gam.eval(b);
 	}
 	
