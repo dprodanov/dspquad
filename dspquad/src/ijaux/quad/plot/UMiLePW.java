@@ -6,7 +6,6 @@ import org.jfree.data.xy.XYSeries;
 
 import ijaux.quad.Utils;
 import ijaux.quad.misc.MiLePW;
-import ijaux.quad.misc.MiLeW;
 
 
 public class UMiLePW extends MiLePW implements UIFunction {
