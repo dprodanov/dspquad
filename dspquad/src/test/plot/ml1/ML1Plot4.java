@@ -12,6 +12,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import ijaux.quad.plot.UMiLe1;
+import ijaux.quad.plot.UMiLe2;
  
  
 public class ML1Plot4 {
@@ -29,12 +30,12 @@ public static void main(String[] args) {
 
             final XYSeriesCollection dataset = new XYSeriesCollection();
        
-           XYSeries ds1 = dataset(0.5, -1.0, 0, 101);
+           XYSeries ds1 = dataset(0.5, 0, 2., 201);
            dataset.addSeries(ds1);
-           XYSeries ds2 = dataset(1.0, -1.0, 0, 101);
+           XYSeries ds2 = dataset(1.0, 0, 2., 201);
            dataset.addSeries(ds2);
        
-           XYSeries ds3 = dataset(2.0, -1.0, 0, 101);
+           XYSeries ds3 = dataset(2.0, 0, 6., 201);
            dataset.addSeries(ds3);
                   
             JFreeChart chart2 = ChartFactory.createXYLineChart("ML1 Plot, a>0",
@@ -51,7 +52,7 @@ public static void main(String[] args) {
  
 	private static XYSeries dataset(double alpha,  double x0, double xn, int npoints) {
 		
-		UMiLe1 fn=new UMiLe1(alpha);
+		UMiLe2 fn=new UMiLe2(alpha, 1., 0.01);
 	    
 		fn.compute(x0, xn, npoints);
 	
