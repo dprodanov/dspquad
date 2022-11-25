@@ -56,7 +56,8 @@ public class GMWright implements QFunction {
 	////////////////////////
 	
 	/**
-	 * Ker=u^(1/b-2)*%e^(-(cos(%pi*a)*z)/u^(a/b)-u^(1/b))*sin((sin(%pi*a)*z-%pi*b*u^(a/b))/u^(a/b))
+	 * Kwg(z, a, b):=u^(1/b-2)*%e^(-(cos(%pi*a)*z)/u^(a/b)-u^(1/b))*sin((sin(%pi*a)*z)/u^(a/b)-%pi*b);
+	 *      
 	 * 
 	 * @author Dimiter Prodanov
 	 */
@@ -81,13 +82,13 @@ public class GMWright implements QFunction {
 		public double eval(double u) {
 			if ( b==0) return 0;
 			double uab=pow(u,a/b);
-			double ub=pow(u,1.0/b-2.0);
-			return ub*exp(-(cos(PI*a)*z)/uab-pow(u,1.0/b))*sin((sin(PI*a)*z)/uab-PI*b);
+			double ub=pow(u,1./b-2.);
+			return ub*exp(-(cos(PI*a)*z)/uab-pow(u,1./b))*sin((sin(PI*a)*z)/uab-PI*b);
 		}
 
 		@Override
 		public String toString() {
-			return "u^(1/b-2)*%e^(-(cos(%pi*a)*z)/u^(a/b)-u^(1/b))*sin((sin(%pi*a)*z-%pi*b*u^(a/b))/u^(a/b))";
+			return "=u^(1/b-2)*e^(-(cos(pi*a)*z)/u^(a/b)-u^(1/b))*sin((sin(pi*a)*z)/u^(a/b)-pi*b)";
 		}
 
 	}
@@ -344,9 +345,9 @@ public class GMWright implements QFunction {
 		GMWright g= new GMWright(-0.5, 1.0);
 		
 		double ret=g.eval(0);
-		System.out.println (" W(0 | -1/2, 1)= "+ ret+"\t, "+0.5);
+		System.out.println (" W(0 | -1/2, 1)= "+ ret+"\t, "+2.*0.5);
 		 ret=g.eval(2);
-		System.out.println (" W(2 | -1/2, 1)= "+ ret+"\t, "+0.9213503964748574);
+		System.out.println (" W(2 | -1/2, 1)= "+ ret+"\t, "+2.*0.9213503964748574);
 		
 		//////////////////////////////////////
 		//  Gaussian
