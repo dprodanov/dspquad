@@ -58,7 +58,7 @@ public static void main(String[] args) {
 	
 	private static XYSeries datasetGauss( double x0, double xn, int npoints) {
 		
-		XYSeries series=new XYSeries("Gauss erf(x/2)+1/2");
+		XYSeries series=new XYSeries("Gauss erf(x/2)+1");
 		
 		Erf erf=new Erf();
  

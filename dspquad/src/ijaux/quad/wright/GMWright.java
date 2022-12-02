@@ -80,15 +80,15 @@ public class GMWright implements QFunction {
 	
 		@Override
 		public double eval(double u) {
-			if ( b==0) return 0;
+			if (b==0) return 0;
 			double uab=pow(u,a/b);
 			double ub=pow(u,1./b-2.);
-			return ub*exp(-(cos(PI*a)*z)/uab-pow(u,1./b))*sin((sin(PI*a)*z)/uab-PI*b);
+			return ub*exp(-(cos(PI*a)*z)/uab-pow(u,1./b))*sin(-(sin(PI*a)*z)/uab+PI*b);
 		}
 
 		@Override
 		public String toString() {
-			return "=u^(1/b-2)*e^(-(cos(pi*a)*z)/u^(a/b)-u^(1/b))*sin((sin(pi*a)*z)/u^(a/b)-pi*b)";
+			return "u^(1/b-2)*e^(-(cos(PI*a)*z)/u^(a/b)-u^(1/b))*sin(-(sin(PI*a)*z)/u^(a/b)+PI*b)";
 		}
 
 	}
@@ -120,8 +120,48 @@ public class GMWright implements QFunction {
 	}
 	/////////////////
 	
+	////////////////////////////
+	//  case b=0
+	///////////////////
 	/**
-	 * Ker=u^(-b/a+1/a-1)*%e^(-(cos(%pi*a)*z)/u-u^(1/a))*sin((sin(%pi*a)*z)/u-%pi*b);
+	 * Kwgr(z, a, b):=%e^(-(cos(%pi*a)*z)/r^a-r)*sin(-(sin(%pi*a)*z )/r^a + %pi *b)/r^b;
+	 *
+	 */
+	private class KerFr implements QFunction {
+	
+	double a=0;
+	double z=0;
+	
+	/**
+	 * 
+	 * @param aa
+	 * @param bb
+	 * @param zz
+	 */
+	public void setVal(double aa, double bb, double  zz) {
+		a=aa;
+		b=bb;
+		z=zz;
+	}
+	
+	@Override
+	public double eval(double r) {
+		final double ra=pow(r,a);
+		final double rb=pow(r,b);
+		return exp((cos(PI*a)*z)/ra-r)*sin(-(sin(PI*a)*z)/ra +PI*b)/rb;
+	}
+	
+	@Override
+	public String toString() {
+		return "exp((cos(PI*a)*z)/r^a-r)*sin(-(sin(PI*a)*z)/r^a + PI*b)/r^b";
+	}
+	
+	}
+	/////////////////
+	
+	/**
+	 * Kwg1(z, a, b):=u^((1-b)/a-1)*%e^(-(cos(%pi*a)*z)/u-u^(1/a))* sin((sin(%pi*a)*z)/u-%pi*b);
+	 * 
 	 * @author Dimiter Prodanov
 	 *
 	 */
@@ -140,13 +180,13 @@ public class GMWright implements QFunction {
 		@Override
 		public double eval(double u) {
 			if (u==0) return 0.0;
-			final double ee=exp(-(cos(PI*a)*z)/u-pow(u,1/a));
-			return pow(u,-b/a+1/a-1)*ee*sin(sin(PI*a)*z/u-PI*b);
+			final double ee=exp(-(cos(PI*a)*z)/u-pow(u,1./a));
+			return pow(u,(1.-b)/a-1.)*ee*sin(sin(PI*a)*z/u-PI*b);
 		}
 
 		@Override
 		public String toString() {
-			return "u^(-b/a+1/a-1)*%e^(-(cos(%pi*a)*z)/u-u^(1/a))*sin((sin(%pi*a)*z)/u-%pi*b)";
+			return "u^((1-b)/a-1)*exp(-(cos(PI*a)*z)/u-u^(1/a))*sin((sin(PI*a)*z)/u-PI*b)";
 		}
 		
 	}
@@ -154,8 +194,9 @@ public class GMWright implements QFunction {
 	
 	/////////////////////////
 	/*
-	 * Ker= exp(eps*cos(phi)-(cos(a*phi)*z)/eps^a) *cos((sin(a*phi)*z)/eps^a+eps*sin(phi)+ (1-b)*phi);
-	 *      
+	 * PP(z,a,b,eps):= exp(eps*cos(phi)-(cos(a*phi)*z)/eps^a) *cos((sin(a*phi)*z)/eps^a+eps*sin(phi)+ (1-b)*phi);
+	 * 
+	 * circular integral     
 	*/
 	private class KerP implements QFunction {
 
@@ -192,6 +233,7 @@ public class GMWright implements QFunction {
 	 
 	private KerF qf=new KerF();
 	private KerF0 qf0=new KerF0();
+	private KerFr qfr=new KerFr();
 	private KerF1 qf1=new KerF1();
 	private KerP qp= new KerP();
  
@@ -281,9 +323,12 @@ public class GMWright implements QFunction {
 				if (x==0) 
 					value=0; 
 				else {
-					qf1.setVal(a, 1.0, -x);
+				/*	qf1.setVal(a, 1.0, -x);
 					final double[] vv=intdei(qf1, 0.0, tol);
-					value=vv[0]*fr/a;
+					value=vv[0]*fr/a; */
+					qfr.setVal(a, 1.0, -x);
+					final double[] vv=intdei(qfr, 0.0, tol);
+					value=vv[0]*fr;
 				}
 				value=1.0+value;
 				return value;
@@ -299,7 +344,8 @@ public class GMWright implements QFunction {
 	 	 			//System.out.println("case a<0,  b>1:  "+b);
 	 	 			qf.setVal(a,b,-x);
 	 	 			final double[] vv=intdei(qf, 0.0,  tol);
-					value=-vv[0]*fr/b;
+	 	 			
+					value=vv[0]*fr/b;
 	 	 		}
 			} else  { // b<0
 				//System.out.println("case a<0,  b<0:  "+b);
