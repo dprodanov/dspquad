@@ -81,8 +81,8 @@ public class GMWright implements QFunction {
 		@Override
 		public double eval(double u) {
 			if (b==0) return 0;
-			double uab=pow(u,a/b);
-			double ub=pow(u,1./b-2.);
+			final double uab=pow(u,a/b);
+			final double ub=pow(u,1./b-2.);
 			return ub*exp(-(cos(PI*a)*z)/uab-pow(u,1./b))*sin(-(sin(PI*a)*z)/uab+PI*b);
 		}
 
@@ -108,7 +108,7 @@ public class GMWright implements QFunction {
 		
 		@Override
 		public double eval(double r) {
-			double ra=pow(r,a);
+			final double ra=pow(r,a);
 			return exp((cos(PI*a)*z)/ra-r)*sin(-(sin(PI*a)*z)/ra);
 		}
 
@@ -213,8 +213,8 @@ public class GMWright implements QFunction {
 		
 		@Override
 		public double eval(double u) {
-	 		double ea=pow(eps,a);
-			double uab=sin(a*u)*z/ea+eps*sin(u)+(1.0-b)*u;
+	 		final double ea=pow(eps,a);
+			double uab=sin(a*u)*z/ea+eps*sin(u)+(1.-b)*u;
 			uab=cos(uab);
 			return exp(cos(u)*eps-cos(a*u)*z/ea)*uab;			
 		}
@@ -425,10 +425,10 @@ public class GMWright implements QFunction {
 		g= new GMWright(-0.5, -0.5);	
 		
 		ret=g.eval(1.5);
-		System.out.println (" W(3/2 | -1/2, -1/2)= "+ ret+"\t, "+0.01004579795617512);
+		System.out.println (" W(3/2 | -1/2, -1/2)= "+ ret+"\t, "+2.*0.01004579795617512);
 		
 		ret=g.eval(2.5);
-		System.out.println (" W(5/2 | -1/2, -1/2)= "+ ret+"\t, "+0.06282592315006161);
+		System.out.println (" W(5/2 | -1/2, -1/2)= "+ ret+"\t, "+2.*0.06282592315006161);
 		
 		//////////////////////////////////////
 		//  Gaussian derivative 3
@@ -437,10 +437,10 @@ public class GMWright implements QFunction {
 		g= new GMWright(-0.5, -1.0);	
 		
 		ret=g.eval(1.5);
-		System.out.println (" W(3/2 | -1/2, -1)= "+ ret+"\t, "+0.11301522700697);
+		System.out.println (" W(3/2 | -1/2, -1)= "+ ret+"\t, "+2.*0.11301522700697);
 		
 		ret=g.eval(2.5);
-		System.out.println (" W(5/2 | -1/2, -1)= "+ ret+"\t, "+-0.004619553172798648);
+		System.out.println (" W(5/2 | -1/2, -1)= "+ ret+"\t, "+-2*0.004619553172798648);
 		
 		//////////////////////////////////////
 		//  Gaussian derivative 4
@@ -449,10 +449,10 @@ public class GMWright implements QFunction {
 		g= new GMWright(-0.5, -1.5);	
 		
 		ret=g.eval(1.5);
-		System.out.println (" W(3/2 | -1/2, -3/2)= "+ ret+"\t, "+-0.0998301171894902);
+		System.out.println (" W(3/2 | -1/2, -3/2)= "+ ret+"\t, "+-2.*0.0998301171894902);
 		
 		ret=g.eval(2.5);
-		System.out.println (" W(5/2 | -1/2, -3/2)= "+ ret+"\t, "+-0.08846444325909411);
+		System.out.println (" W(5/2 | -1/2, -3/2)= "+ ret+"\t, "+-2.*0.08846444325909411);
 		
 		//////////////////////////////////////
 		//  Gaussian derivative 5
@@ -461,10 +461,10 @@ public class GMWright implements QFunction {
 		g= new GMWright(-0.5, -2.0);	
 		
 		ret=g.eval(1.5);
-		System.out.println (" W(3/2 | -1/2, -2)= "+ ret+"\t, "+-0.1511578661218224);
+		System.out.println (" W(3/2 | -1/2, -2)= "+ ret+"\t, "+-2.*0.1511578661218224);
 		
 		ret=g.eval(2.5);
-		System.out.println (" W(5/2 | -1/2, -2)= "+ ret+"\t, "+0.1198196604194649);
+		System.out.println (" W(5/2 | -1/2, -2)= "+ ret+"\t, "+2.*0.1198196604194649);
 
 		////////////////////////
 		// Airy
