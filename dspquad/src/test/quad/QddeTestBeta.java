@@ -26,7 +26,7 @@ import ijaux.quad.euler.Beta;
 
 	@Override
 	public String toString() {
-		return "sin(x)^z";
+		return "sin(x)^k";
 	}
 }
   
@@ -45,8 +45,13 @@ public class QddeTestBeta {
 		 SinF f= new SinF(4.0);
 			
 		double[]	ret2=intde(f, 0.0, PI, 1.0e-15);
-			   System.out.println (" I_2="+ ret2[0]+"\t, err= "+ret2[1]+ "\t, "+ret);
+			   System.out.println ("DE1: I_2="+ ret2[0]+"\t, err= "+ret2[1]+ "\t, "+ret);
 			   
+		 ret2=intdeq(f, 0.0, PI, 1.0e-15);
+			   System.out.println ("DE2: I_2="+ ret2[0]+"\t, err= "+ret2[1]+ "\t, "+ret);
+			   
+	     ret2=quadgkro(f, 0.0, PI, 1.0e-15);
+			   System.out.println ("GK(10,21): I_2="+ ret2[0]+"\t, err= "+ret2[1]+ "\t, "+ret);
 	
 	}
 	 

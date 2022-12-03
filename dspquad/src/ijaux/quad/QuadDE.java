@@ -4,11 +4,11 @@ import static java.lang.Math.*;
  
 
 /*
- 	Courtesy to Prof. Takuya Ooura
+ 	Courtesy to Prof. Takuya Ooura  and  Dr. Robert A. van Engelen
  	Library for computation of special functions
  	and numerical integration
  	
-The code is based in mostly on
+The code is based mostly on
  * http://www.kurims.kyoto-u.ac.jp/~ooura/intde.html
 for the tanh-sinh (double exponential) method
  
@@ -434,13 +434,13 @@ public class QuadDE {
 	        double fc=0;
 	        try {
 	          fc=f.eval(c);
-	          Q1 = h/6.0  * (fa + 4.0*fc + fb);
-	          Q2 = h/12.0 * (fa + 4.0*f.eval(d) + 2.0*fc + 4.0*f.eval(e) + fb);
+	          Q1 = h/6.  * (fa + 4.*fc + fb);
+	          Q2 = h/12. * (fa + 4.*f.eval(d) + 2.*fc + 4.*f.eval(e) + fb);
 	        } catch (RuntimeException ex) {
 	        	return 0.0;
 	        }
 	        if (abs(Q2 - Q1) <= eps)
-	            return Q2 + (Q2 - Q1) / 15.0;
+	            return Q2 + (Q2 - Q1) / 15.;
 	        else
 	            return adaptive(f,a, c, fa, fc, eps) + adaptive(f, c, b, fc, fb, eps);
 	   }
@@ -454,14 +454,14 @@ public class QuadDE {
 	       @param b -upper limit of integration 
 	       @param eps - relative error requested 
 		 */
-		 public static double[] intdeaf(QFunction f, double a, double b, double eps) {
-			 double ret=0.0;
-			 double fa=f.eval(a);
-		     double fb=f.eval(b);
-		     ret=adaptivef(f, a, b, fa, fb, eps);	
-			 return  new double[] {ret, eps};  
-			 
-		 }
+	 public static double[] intdeaf(QFunction f, double a, double b, double eps) {
+		 double ret=0.0;
+		 double fa=f.eval(a);
+	     double fb=f.eval(b);
+	     ret=adaptivef(f, a, b, fa, fb, eps);	
+		 return  new double[] {ret, eps};  
+		 
+	 }
 			
 	 private static double adaptivef(QFunction f, double a, double b, double fa, double fb, double eps) {
 	        final double h = b - a;
@@ -477,16 +477,193 @@ public class QuadDE {
 	        double fc=0;
 	        try {
 	          fc=f.eval(c);
-	          Q1 = h/6.0  * (fa + 4.*fc + fb);
-	          Q2 = h/12.0 * (fa + 4.*f.eval(d) + 2.*fc + 4.*f.eval(e) + fb);
+	          Q1 = h/6.  * (fa + 4.*fc + fb);
+	          Q2 = h/12. * (fa + 4.*f.eval(d) + 2.*fc + 4.*f.eval(e) + fb);
 	        } catch (RuntimeException ex) {
 	        	return 0.0;
 	        }
 	        if (abs(Q2 - Q1) <= eps)
-	            return Q2 + (Q2 - Q1) / 15.0;
+	            return Q2 + (Q2 - Q1) / 15.;
 	        else
 	            return adaptive(f,a, c, fa, fc, eps) + adaptive(f, c, b, fc, fb, eps);
 	   }
 	
 	 
+	/**
+	 * Improving the Double Exponential Quadrature Tanh-Sinh, Sinh-Sinh and Exp-Sinh Formulas
+	 Dr. Robert A. van Engelen, Genivia Labs
+	 */
+	public static double[] intdeq(QFunction f, double a, double b, double eps ) {
+		 final double tol = 10.*eps;
+		 //	 if (n <= 0) // use default levels n=6
+		 final int n = 6; // 6 is “optimal”, 7 just as good taking longer
+		 
+		 final double c = (a+b)/2.; // center (mean)
+		 final double d = (b-a)/2.; // half distance
+		 double s = f.eval(c);
+		 double v,  h = 2;
+		 double err;
+		 int k = 0;
+	
+		 if (eps <= 0) // use default eps=1E-8
+			 eps = 1E-8;
+		 do {
+			 double p = 0, q, fp = 0, fm = 0, t, eh;
+			 h /= 2.;
+			 t = eh = exp(h);
+			 if (k > 0)
+			 eh *= eh;
+			 do {
+				 final double t1=1./t;
+				 final double u = exp(t1-t); // = exp(-2*sinh(j*h)) = 1/exp(sinh(j*h))^2
+				 final double r = 2.*u/(1.+u); // = 1 - tanh(sinh(j*h))
+				 final double w = (t+t1)*r/(1.+u); // = cosh(j*h)/cosh(sinh(j*h))^2
+				 final double x = d*r;
+				 if (a+x > a) { // if too close to a then reuse previous fp
+					 double y = f.eval(a+x);
+				 if (!Double.isNaN(y))
+					 fp = y; // if f(x) is finite, add to the local sum
+				 }
+				 if (b-x < b) { // if too close to b then reuse previous fm
+					 double y = f.eval(b-x);
+				 if (!Double.isNaN(y))
+					 fm = y; // if f(x) is finite, add to the local sum
+				 }
+				 q = w*(fp+fm);
+				 p += q;
+				 t *= eh;
+			 } while (abs(q) > eps*abs(p));
+			 v = s-p;
+			 s += p;
+			 ++k;
+		 } while (abs(v) > tol*abs(s) && k <= n);
+		 err = abs(v)/(abs(s)+eps);
+		 return new double[] {d*s*h, err}; // result with estimated relative error e
+	 }
+	 
+	
+	
+	 // abscissas and weights pre-calculated with Legendre Stieltjes polynomials
+	 static final double[] abscissas  = new double[] {
+		 0.00000000000000000e+00,
+		 7.65265211334973338e-02,
+		 1.52605465240922676e-01,
+		 2.27785851141645078e-01,
+		 3.01627868114913004e-01,
+		 3.73706088715419561e-01,
+		 4.43593175238725103e-01,
+		 5.10867001950827098e-01,
+		 5.75140446819710315e-01,
+		 6.36053680726515025e-01,
+		 6.93237656334751385e-01,
+		 7.46331906460150793e-01,
+		 7.95041428837551198e-01,
+		 8.39116971822218823e-01,
+		 8.78276811252281976e-01,
+		 9.12234428251325906e-01,
+		 9.40822633831754754e-01,
+		 9.63971927277913791e-01,
+		 9.81507877450250259e-01,
+		 9.93128599185094925e-01,
+		 9.98859031588277664e-01,
+	 };
+	 
+	 static final double[] weights = new double[] {
+			 7.66007119179996564e-02,
+			 7.63778676720807367e-02,
+			 7.57044976845566747e-02,
+			 7.45828754004991890e-02,
+			 7.30306903327866675e-02,
+			 7.10544235534440683e-02,
+			 6.86486729285216193e-02,
+			 6.58345971336184221e-02,
+			 6.26532375547811680e-02,
+			 5.91114008806395724e-02,
+			 5.51951053482859947e-02,
+			 5.09445739237286919e-02,
+			 4.64348218674976747e-02,
+			 4.16688733279736863e-02,
+			 3.66001697582007980e-02,
+			 3.12873067770327990e-02,
+			 2.58821336049511588e-02,
+			 2.03883734612665236e-02,
+			 1.46261692569712530e-02,
+			 8.60026985564294220e-03,
+			 3.07358371852053150e-03,
+			 };
+	 
+	 static final double[] gauss_weights  = new double[] {
+			 1.52753387130725851e-01,
+			 1.49172986472603747e-01,
+			 1.42096109318382051e-01,
+			 1.31688638449176627e-01,
+			 1.18194531961518417e-01,
+			 1.01930119817240435e-01,
+			 8.32767415767047487e-02,
+			 6.26720483341090636e-02,
+			 4.06014298003869413e-02,
+			 1.76140071391521183e-02,
+			 };
+	
+	 // Adaptive Gauss-Kronrod (G10,K21)
+	 
+	 public static double[] quadgkro (QFunction f, double a, double b,  double eps) {
+		 return qakro(f,a,b,6, 1e-4,eps,1.0e-8);
+	 }
+	 
+	 static double[]  qakro(QFunction f, double a, double b, int n, double tol, double eps, double err) {
+			 double c = (a+b)/2.;
+			 double d = (b-a)/2.;
+			
+			 double[] r = qgk(f, c, d, err);
+			 double e=r[1];
+			 double s = d*r[0];
+			 double t = abs(s*tol);
+
+			 if (eps <= 0) // use default eps=1E-8
+				 eps = 1E-8;
+			 if (tol == 0)
+				 tol = t;
+			 
+			 
+			 if (n > 0 && t < e && tol < e) {
+				 r= qakro(f, a, c, n-1, t/2., eps, err);
+				 s=r[0];
+				 err=r[1];
+				 r=qakro(f, c, b, n-1, t/2., eps, e);
+				 s +=r[0];
+				 err += e;
+			 	 return new double[] {s, err};
+			 }
+			 err = e;
+			 return new double[] {s, err};
+	 }
+	 
+	 
+	 private static double[]  qgk(QFunction f, double c, double d, double err) {
+	
+		 double p = 0; // Kronrod quadrature sum
+		 double q = 0; // Gauss quadrature sum
+		 double fp, fm;
+		
+		 fp = f.eval(c);
+		 p = fp * weights[0];
+		 for (int i = 1; i < weights.length; i += 2) {
+			 fp = f.eval(c + d * abscissas[i]);
+			 fm = f.eval(c - d * abscissas[i]);
+			 p += (fp + fm) * weights[i];
+			 q += (fp + fm) * gauss_weights[i/2];
+		 }
+		 for (int i = 2; i < weights.length; i += 2) {
+			 fp = f.eval(c + d * abscissas[i]);
+			 fm = f.eval(c - d * abscissas[i]);
+			 p += (fp + fm) * weights[i];
+		 }
+		 err = abs(p - q);
+		 final double e = abs(2.*p*1e-17); // optional, to take 1e-17 MachEps prec. into account
+		 if (err < e)
+			 err = e;
+		 return new double[] {p, err};
+		}
+				
 }
