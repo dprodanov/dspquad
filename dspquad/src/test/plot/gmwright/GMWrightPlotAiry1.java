@@ -15,7 +15,7 @@ import ijaux.quad.plot.IFChart;
 import ijaux.quad.plot.UGMWright;
  
  
-public class GMWrightPlot1 implements IFChart {
+public class GMWrightPlotAiry1 implements IFChart {
 
 public static void main(String[] args) {
 
@@ -33,14 +33,14 @@ public static void main(String[] args) {
 
             final XYSeriesCollection dataset = new XYSeriesCollection();
        
-           XYSeries ds1 = dataset(-0.5, 0.5, -9.0, 9.0, 101);
-           dataset.addSeries(ds1);
-           XYSeries ds2 = dataset(-0.5, 1.0, -9.0, 9.0, 101);
-           dataset.addSeries(ds2);
-           XYSeries ds3 = dataset(-0.33333, 0.66667, -9.0, 9.0, 101);
-           dataset.addSeries(ds3);
-           XYSeries ds4 = dataset(-0.33333, 1.0, -9.0, 9.0, 101);
-           dataset.addSeries(ds4);
+//           XYSeries ds1 = dataset(-0.5, 0.5, -9.0, 9.0, 101);
+//           dataset.addSeries(ds1);
+//           XYSeries ds2 = dataset(-0.5, 1.0, -9.0, 9.0, 101);
+//           dataset.addSeries(ds2);
+//           XYSeries ds3 = dataset(-0.33333, 0.66667, -9.0, 9.0, 101);
+//           dataset.addSeries(ds3);
+//           XYSeries ds4 = dataset(-0.33333, 1.0, -9.0, 9.0, 101);
+//           dataset.addSeries(ds4);
            XYSeries ds5 = dataset(-0.66667, 0.33333, -9.0, 9.0, 101);
            dataset.addSeries(ds5);
            XYSeries ds6 = dataset(-0.66667, 1.0, -9.0, 9.0, 101);

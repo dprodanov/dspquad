@@ -3,8 +3,8 @@ package ijaux.quad.misc;
 import static ijaux.quad.QuadDE.intdei;
 
 import ijaux.quad.QFunction;
-//import ijaux.quad.euler.Gamma;
 import ijaux.quad.wright.GMWright;
+import static java.lang.Math.exp;
 
 public class MiLeW implements QFunction {
 	
@@ -12,7 +12,6 @@ public class MiLeW implements QFunction {
 	private double a;
 	private double b;
 	
-	//Gamma gam=new Gamma();
 	
 	////////////////////
 	private class KerF implements QFunction {
@@ -20,13 +19,13 @@ public class MiLeW implements QFunction {
 		double z=0;
 		
 		public void setVal( double  zz) {
-			z=(zz);
+			z=zz;
 		}
 		
 		@Override
 		public double eval(double u) {
 			final double bk=gmw.eval(u*z);
-			return Math.exp(-u)*bk;
+			return exp(-u)*bk;
 		}
 		
 		public double prefactor() {
@@ -35,7 +34,7 @@ public class MiLeW implements QFunction {
 		
 		@Override
 		public String toString() {
-			return "exp(-u)* W(a,b, zu)"; 
+			return "exp(-u)* W(a,b, z u)"; 
 		}
 	}
 	//////////////////
@@ -51,8 +50,6 @@ public class MiLeW implements QFunction {
 		a=aa;
 		b=bb;
 		gmw= new GMWright(a,b);
-		//fr=1/gam.eval(b);
-
 	}
 
 	@Override

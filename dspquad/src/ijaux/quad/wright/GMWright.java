@@ -109,12 +109,12 @@ public class GMWright implements QFunction {
 		@Override
 		public double eval(double r) {
 			final double ra=pow(r,a);
-			return exp((cos(PI*a)*z)/ra-r)*sin(-(sin(PI*a)*z)/ra);
+			return exp(-(cos(PI*a)*z)/ra-r)*sin(-(sin(PI*a)*z)/ra);
 		}
 
 		@Override
 		public String toString() {
-			return "exp((cos(PI*a)*z)/r^a-r)*sin(-(sin(PI*a)*z)/r^a)";
+			return "exp(-(cos(PI*a)*z)/r^a-r)*sin(-(sin(PI*a)*z)/r^a)";
 		}
 		
 	}
@@ -148,12 +148,12 @@ public class GMWright implements QFunction {
 	public double eval(double r) {
 		final double ra=pow(r,a);
 		final double rb=pow(r,b);
-		return exp((cos(PI*a)*z)/ra-r)*sin(-(sin(PI*a)*z)/ra +PI*b)/rb;
+		return exp(-(cos(PI*a)*z)/ra-r)*sin(-(sin(PI*a)*z)/ra +PI*b)/rb;
 	}
 	
 	@Override
 	public String toString() {
-		return "exp((cos(PI*a)*z)/r^a-r)*sin(-(sin(PI*a)*z)/r^a + PI*b)/r^b";
+		return "exp(-(cos(PI*a)*z)/r^a-r)*sin(-(sin(PI*a)*z)/r^a + PI*b)/r^b";
 	}
 	
 	}
@@ -291,8 +291,7 @@ public class GMWright implements QFunction {
 		double ret=0;
 		qp.setVal(a, b,  eps, x);
 		final double[] vvp=intde(qp, -PI, PI, tol);
-		ret= pow(eps, 1.0-b)*vvp[0]/TWOPI;
-		//ret= vvp[0]/TWOPI;
+		ret= pow(eps, 1.-b)*vvp[0]/TWOPI;
 		return ret;
 	}
 	
@@ -326,7 +325,7 @@ public class GMWright implements QFunction {
 				/*	qf1.setVal(a, 1.0, -x);
 					final double[] vv=intdei(qf1, 0.0, tol);
 					value=vv[0]*fr/a; */
-					qfr.setVal(a, 1.0, -x);
+					qfr.setVal(a, 1., -x);
 					final double[] vv=intdei(qfr, 0.0, tol);
 					value=vv[0]*fr;
 				}
@@ -335,7 +334,7 @@ public class GMWright implements QFunction {
 			} // end case
 			if (b>0) {
 	 	 		if (b<1) {
-	 	 			fr=1.0/PI;
+	 	 			//fr=1./PI;
 	 	 			//System.out.println(" case a<0,   b<1:  "+b);
 	 	 			qf1.setVal(a, b, -x);
  	 				final double[] vv=intdei(qf1, 0.0,  tol);
@@ -358,11 +357,11 @@ public class GMWright implements QFunction {
 			double eps=min(geps,32.0);
 			
 			// stationary phase method
-			  eps= pow(abs(a*x), 1/(a+1));
+			  eps= pow(abs(a*x), 1./(a+1.));
 			//  System.out.println("eps "+eps);
 			 		
 			qf1.setVal(a, b, -x);
-			final double[] vv=intdei(qf1, eps, tol);
+			final double[] vv=intdei(qf1, pow(eps, a), tol);
 			value=-fr/a*vv[0]; 
 			
 			double phase=phaseint(-x, a, b, eps);

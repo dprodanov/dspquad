@@ -52,7 +52,7 @@ public static void main(String[] args) {
 		
 		UMiLe1 fn=new UMiLe1(alpha);
 	    
-		fn.setEps(xn);
+		//fn.setEps(xn);
 		fn.compute(x0, xn, npoints);
 	
 	    return fn.getSeries();

@@ -6,6 +6,9 @@ import ijaux.quad.QFunction;
 import ijaux.quad.euler.Gamma;
 import ijaux.quad.wright.GMWright;
 
+import static java.lang.Math.pow;
+import static java.lang.Math.exp;
+
 public class MiLePW implements QFunction {
 	
 	GMWright gmw;
@@ -28,8 +31,8 @@ public class MiLePW implements QFunction {
 		
 		@Override
 		public double eval(double u) {
-			final double bk=gmw.eval(u*z)*Math.pow(u, g-1.);
-			return Math.exp(-u)*bk;
+			final double bk=gmw.eval(u*z)*pow(u, g-1.);
+			return exp(-u)*bk;
 		}
 		
 		public double prefactor() {
@@ -77,18 +80,14 @@ public class MiLePW implements QFunction {
 		double x=5.;
 		
 		ret=g.eval(x);
-		System.out.println ("E(1, 1 |5) "+ ret+ " "+ Math.exp(x));
+		System.out.println ("E(1, 1 |5) "+ ret+ " "+ exp(x));
 		
 		// (exp(x)-1)/x
-		g=new MiLePW(1.0, 2.0, 0.5);
-
+		g=new MiLePW(1.0, 2.0, 1.);
+		 x=.5;
 		ret=g.eval(x);
-		System.out.println ("E(1, 2 |5) "+ ret+ " "+ (Math.exp(x)-1.)/x);
+		System.out.println ("E(1, 2 |5) "+ ret+ " "+ (exp(x)-1.)/x);
 		
-	//	g=new MiLePW(2.0, 3.0);
-
-	//	ret=g.eval(x);
-	//	System.out.println ("E(1, 2 |5) "+ ret+ " "+ (Math.exp(Math.sqrt(x))/(2.*x)+Math.exp(-Math.sqrt(x))/(2.*x)-1./x ));
 		
 		
 		

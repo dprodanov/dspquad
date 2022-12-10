@@ -33,7 +33,7 @@ public class MiLe1 implements QFunction {
 	private Gamma gam=new Gamma();
 	private double tol=1.0e-15;
 	private double gm=1.0;
-	private double geps=1.0e-2;
+	// private double geps=1.0e-2;
 
 	/////////////////////////
 	//  Integral Kernels
@@ -141,11 +141,11 @@ public class MiLe1 implements QFunction {
 	
 	/*
 	 * sets the global epsilon
-	 */
+	 
 	public void setEps(double ge) {
 		geps=ge;
 	}
-	
+	*/
 	/*
 	 * 
 	 */

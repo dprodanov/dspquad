@@ -62,7 +62,7 @@ public static void main(String[] args) {
 		
 		Erf erf=new Erf();
  
-		double[][] data = new double[2][]; //{ {0.1, 0.2, 0.3}, {1, 2, 3} };
+		double[][] data = new double[2][]; 
  		 
 	    double[] xx=Utils.linspace(x0, xn, npoints);
 	    data[0]=xx;

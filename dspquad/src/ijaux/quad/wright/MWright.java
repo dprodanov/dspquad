@@ -34,7 +34,7 @@ public class MWright implements QFunction {
 		
 		@Override
 		public double eval(double u) {
-			return exp(-cos(PI*a)*u*z-pow(u, 1.0/a))*sin(sin(PI*a)*u*z-PI*a);
+			return exp(-cos(PI*a)*u*z-pow(u, 1./a))*sin(sin(PI*a)*u*z-PI*a);
 		}
 
 		@Override
@@ -44,7 +44,7 @@ public class MWright implements QFunction {
 		
 		@Override
 		public double prefactor() {
-			return -1.0/(a*PI);
+			return -1./(a*PI);
 		}
 		
 	}
@@ -69,7 +69,7 @@ public class MWright implements QFunction {
 	@Override
 	public double eval(double x) {
 		if (x==0) {
-			return 1.0/gam.eval(1.0-a);
+			return 1./gam.eval(1.-a);
 		}
 		qf.setVal(a,x);
 		//double ret=-1.0/(a*PI);
