@@ -71,7 +71,7 @@ public static void main(String[] args) {
 			 x2[i]=-x[i]*x[i];
 		 }
 		 double eps=abs(xn);
-		 fn.setEps(eps);
+		// fn.setEps(eps);
 		 fn.compute(x, x2);
 			 
 		fn.compute(x, x2);

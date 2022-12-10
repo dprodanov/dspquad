@@ -76,7 +76,7 @@ public static void main(String[] args) {
 		
 		double eps=(abs(xn));
 		System.out.println("eps "+eps);
-		fn.setEps(eps);
+	//	fn.setEps(eps);
 		fn.compute(x, x2);
 		 
 		 
@@ -93,7 +93,7 @@ private static XYSeries datasetI0(double alpha, double beta, double x0, double x
 		 }
 		 
 		double eps= (abs(xn));
-		fn.setEps(eps);
+//		fn.setEps(eps);
 		fn.compute(x, x2);
 		 
 		 

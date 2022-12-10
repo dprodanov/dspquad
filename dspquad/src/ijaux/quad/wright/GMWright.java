@@ -242,7 +242,7 @@ public class GMWright implements QFunction {
  
 	private double tol=1.0e-15;
 	// unused
-	private double geps=-log(tol)/log(10);
+//	private double geps=-log(tol)/log(10);
 	
 	private double gm=1.0;
 	
@@ -276,12 +276,12 @@ public class GMWright implements QFunction {
  
 	/**
 	 *  @param ge - sets the global epsilon
-	 */
+	 *
 	public void setEps(double ge) {
 		geps=ge;
 	}
-	
-	
+	*/
+
 
 	/**
 	 * calculates the circular integral contribution

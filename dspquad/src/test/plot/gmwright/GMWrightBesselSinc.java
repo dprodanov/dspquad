@@ -63,7 +63,7 @@ public static void main(String[] args) {
 		 }
 		
 		double eps=abs(xn);
-		fn.setEps(eps);
+	//	fn.setEps(eps);
 			
 		fn.compute(x, x2);
 		 
