@@ -231,13 +231,17 @@ public class GMWright implements QFunction {
 	double a=0, b=1;
 	double value=0;
 	 
+	//ray
 	private KerF qf=new KerF();
 	private KerF0 qf0=new KerF0();
 	private KerFr qfr=new KerFr();
 	private KerF1 qf1=new KerF1();
+	
+	// arch
 	private KerP qp= new KerP();
  
 	private double tol=1.0e-15;
+	// unused
 	private double geps=-log(tol)/log(10);
 	
 	private double gm=1.0;
@@ -341,10 +345,12 @@ public class GMWright implements QFunction {
  	 				value=vv[0]*fr/a;
 	 	 		} else { // b>1
 	 	 			//System.out.println("case a<0,  b>1:  "+b);
-	 	 			qf.setVal(a,b,-x);
-	 	 			final double[] vv=intdei(qf, 0.0,  tol);
-	 	 			
-					value=vv[0]*fr/b;
+	 	 			double phase=phaseint(-x, a, b, 1.0);
+	 	 			//qf.setVal(a,b,-x);
+	 	 			qfr.setVal(a, b, -x);
+	 	 			final double[] vv=intdei(qfr, 1.0,  tol);
+	 	 			//value=vv[0]*fr/b +phase;
+					value=vv[0]*fr +phase;
 	 	 		}
 			} else  { // b<0
 				//System.out.println("case a<0,  b<0:  "+b);
@@ -354,10 +360,10 @@ public class GMWright implements QFunction {
 			}
 		} else { // a>0
 			//System.out.println("case a>0,  b :  "+b);
-			double eps=min(geps,32.0);
+			//double eps=min(geps,32.0);
 			
 			// stationary phase method
-			  eps= pow(abs(a*x), 1./(a+1.));
+			double eps= pow(abs(a*x), 1./(a+1.));
 			//  System.out.println("eps "+eps);
 			 		
 			qf1.setVal(a, b, -x);

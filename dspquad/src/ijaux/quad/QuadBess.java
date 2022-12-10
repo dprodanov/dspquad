@@ -1,9 +1,9 @@
 package ijaux.quad;
 
-import static ijaux.quad.QuadDE.intde;
+//import static ijaux.quad.QuadDE.intde;
 import static java.lang.Math.PI;
 
-import ijaux.quad.Wynn;
+//import ijaux.quad.Wynn;
 import ijaux.quad.gbessel.BesselJ0;
 import ijaux.quad.gbessel.BesselKN;
 
