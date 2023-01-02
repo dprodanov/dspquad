@@ -392,22 +392,29 @@ public class GMWright implements QFunction {
 		
 		//mSystem.out.println("I =\\frac{1}{2 \\pi i}\\int_Ha^{-} exp(xi -z/xi^a)/xi^(b) dxi\n");
 		
+		
 		System.out.println("erf");
 		GMWright g= new GMWright(-0.5, 1.0);
 		
 		double ret=g.eval(0);
 		System.out.println (" W(0 | -1/2, 1)= "+ ret+"\t, "+2.*0.5);
-		 ret=g.eval(2);
-		System.out.println (" W(2 | -1/2, 1)= "+ ret+"\t, "+2.*0.9213503964748574);
+		 long time=System.nanoTime();
+		ret=g.eval(2);
+		time-=System.nanoTime();
+		
+		 System.out.println (" W(2 | -1/2, 1)= "+ ret+"\t, "+2.*0.9213503964748574 +"\t, "+(-time));
+		
 		
 		//////////////////////////////////////
 		//  Gaussian
 		////////////////////////////////
 		System.out.println("Gaussian");
-		g= new GMWright(-0.5, 0.5);
 		
+		g= new GMWright(-0.5, 0.5);
+		time=System.nanoTime();
 		ret=g.eval(0.5);
-		System.out.println (" W(1/2 | -1/2, 1/2)= "+ ret+"\t, "+0.5300070646880571);
+		time-=System.nanoTime();
+		System.out.println (" W(1/2 | -1/2, 1/2)= "+ ret+"\t, "+0.5300070646880571+"\t, "+(-time) );
 		ret=g.eval(1.5);
 		System.out.println (" W(3/2 | -1/2, 1)= "+ ret+"\t, "+0.3214655345976037);
 			
@@ -429,8 +436,10 @@ public class GMWright implements QFunction {
 		System.out.println("GD 2");
 		g= new GMWright(-0.5, -0.5);	
 		
+		time=System.nanoTime();
 		ret=g.eval(1.5);
-		System.out.println (" W(3/2 | -1/2, -1/2)= "+ ret+"\t, "+2.*0.01004579795617512);
+		time-=System.nanoTime();
+		System.out.println (" W(3/2 | -1/2, -1/2)= "+ ret+"\t, "+2.*0.01004579795617512+"\t, "+(-time) );
 		
 		ret=g.eval(2.5);
 		System.out.println (" W(5/2 | -1/2, -1/2)= "+ ret+"\t, "+2.*0.06282592315006161);
@@ -476,8 +485,10 @@ public class GMWright implements QFunction {
 		//////////////////////
 		g= new GMWright(-0.333333333 , 0.66666667);
 		System.out.println("Airy");
+		time=System.nanoTime();
 		ret=g.eval(-0.5);
-		System.out.println (" W(1/2 | -1/3, 2/3)= "+ ret+"\t, "+0.5563338386752553);
+		time-=System.nanoTime();
+		System.out.println (" W(1/2 | -1/3, 2/3)= "+ ret+"\t, "+0.5563338386752553 +"\t, "+(-time));
 	 
 		ret=g.eval(-2.0);
 		System.out.println (" W(-2 | -1/3, 2/3)= "+ ret+"\t, "+0.1736639759810553);
@@ -486,13 +497,24 @@ public class GMWright implements QFunction {
 		////////////////////////
 		// Bessel
 		//////////////////////
-		
+		System.out.println("Bessel J");
 		g= new GMWright(1.0, 1.5);
-		
+		time=System.nanoTime();
 		ret=g.eval(0);
-		System.out.println (" W(0 | 1 , 3/2)= "+ ret+"\t, "+1.128379167095513 +" "+ abs(ret-1.128379167095513));
+		time-=System.nanoTime();
+		System.out.println("Bessel J1/2");
+		System.out.println (" W(0 | 1 , 3/2)= "+ ret+"\t, "+1.128379167095513 +" "+ abs(ret-1.128379167095513) +"\t, "+(-time));
+		time=System.nanoTime();
+		ret=g.eval(-9.869604401089358);
+		time-=System.nanoTime();
+		System.out.println (" W(-PI^2 | 1 , 3/2)= "+ ret+  "\t, "+(-time));
 		
-		
+		System.out.println("Bessel J0");
+		g= new GMWright(1.0, 1.0);
+		time=System.nanoTime();
+		ret=g.eval(-1.445796490736696);
+		time-=System.nanoTime();
+		System.out.println (" W(-w0^2/4 | 1 , 1)= "+ ret+  "\t, "+(-time));
 	}
 
 
