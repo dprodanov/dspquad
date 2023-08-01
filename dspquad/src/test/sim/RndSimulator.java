@@ -3,7 +3,6 @@ package test.sim;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.rmi.CORBA.Util;
 
 import ijaux.quad.Erf;
 import ijaux.quad.QFunction;
