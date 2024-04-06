@@ -13,7 +13,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import ijaux.quad.plot.*;
  
  
-public class ElPlotDemo2 {
+public class ElPlotDemo3 {
 
 public static void main(String[] args) {
 
@@ -35,7 +35,7 @@ public static void main(String[] args) {
             
             XYSeries ds3 = dn_dataset(-5.0, 5.0, 200);
             dataset.addSeries(ds3);
-            JFreeChart chart2 = ChartFactory.createXYLineChart("Am Plot",
+            JFreeChart chart2 = ChartFactory.createXYLineChart("sn/cn/dn Plot",
                     "x", "y", dataset, PlotOrientation.VERTICAL, true, true,
                     false);
             
@@ -49,7 +49,7 @@ public static void main(String[] args) {
  
 	private static XYSeries sn_dataset( double x0, double xn, int npoints) {
 		
-		UAm uen=new UAm(0.3);
+		USn uen=new USn(0.7);
 		
 		uen.compute(x0, xn, npoints);
 	
@@ -59,7 +59,7 @@ public static void main(String[] args) {
 	 
 	private static XYSeries cn_dataset( double x0, double xn, int npoints) {
 		
-		UAm uen=new UAm(0.5);
+		UCn uen=new UCn(0.7);
 		
 		uen.compute(x0, xn, npoints);
 	
@@ -69,7 +69,7 @@ public static void main(String[] args) {
 	 
 	private static XYSeries dn_dataset( double x0, double xn, int npoints) {
 		
-		UAm uen=new UAm(0.7);
+		UDn uen=new UDn(0.7);
 		
 		uen.compute(x0, xn, npoints);
 	

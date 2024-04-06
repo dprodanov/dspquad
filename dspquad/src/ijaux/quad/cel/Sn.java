@@ -13,10 +13,18 @@ public class Sn implements QFunction {
 		m=param;
 	}
 	
+	public void setParams(double p) {
+		m=p;
+	}
+	
 	@Override
 	public double eval(double x) {
 		double[] ret=EllipticFunctions.ellipj(x,  m,  tol);
 		return ret[0];
 	}
 
+	@Override
+	public String toString() {
+		return "sn(x | m)";
+	}
 }

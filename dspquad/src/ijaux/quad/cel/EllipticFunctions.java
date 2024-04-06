@@ -1,5 +1,12 @@
 package ijaux.quad.cel;
  
+/**
+ *  (C) Dimiter Prodanov 2024
+ *   Arithmetic-Geometric Mean algorithm for Elliptic functions
+ *  https://dlmf.nist.gov/22.20
+ * based in part on 
+ * https://github.com/moiseevigor/elliptic
+ */
 
 import static java.lang.Math.sin; 
 import static java.lang.Math.asin; 

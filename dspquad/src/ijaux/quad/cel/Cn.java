@@ -13,10 +13,19 @@ public class Cn implements QFunction {
 		m=param;
 	}
 	
+	public void setParams(double p) {
+		m=p;
+	}
+	
 	@Override
 	public double eval(double x) {
 		double[] ret=EllipticFunctions.ellipj(x,  m,  tol);
 		return ret[1];
+	}
+	
+	@Override
+	public String toString() {
+		return "cn(x | m)";
 	}
 
 }
