@@ -40,9 +40,10 @@ public class Am implements QFunction {
 			final double[] ret=EllipticFunctions.ellipj(x,  m,  tol);
 			return ret[3];
 		} else {
+			// http://arkadiusz-jadczyk.eu/blog/2017/01/case-inverted-modulus-treading-tigers-tail/
 			rm=sqrt(1./m);
 			final double[] ret=EllipticFunctions.ellipj(x*rm,  1./m,  tol);
-			return asin(ret[0]*rm);
+			return (ret[3]);
 		}
 	}
 	

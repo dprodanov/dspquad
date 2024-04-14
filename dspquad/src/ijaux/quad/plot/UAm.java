@@ -16,7 +16,7 @@ public class UAm extends Am implements UIFunction {
 		udata = new DefaultXYDataset();
 	}
 
-	private String title="dn";
+	private String title="am";
 	
 	DefaultXYDataset udata =null;
 	XYSeries series=null;

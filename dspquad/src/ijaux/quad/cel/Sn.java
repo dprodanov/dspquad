@@ -38,7 +38,7 @@ public class Sn implements QFunction {
 			final double[] ret=EllipticFunctions.ellipj(x,  m,  tol);
 			return ret[0];
 		} else {
-			rm=sqrt(1./m);
+			rm=sqrt(1./m); // sn -> sn
 			final double[] ret=EllipticFunctions.ellipj(x*rm,  1./m,  tol);
 			return ret[0]*rm;
 		}

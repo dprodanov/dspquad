@@ -13,7 +13,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import ijaux.quad.plot.*;
  
  
-public class ElPlotDemo2 {
+public class ElPlotDemoAm {
 
 public static void main(String[] args) {
 
@@ -27,14 +27,17 @@ public static void main(String[] args) {
             frame.setVisible(true);
              XYSeriesCollection dataset = new XYSeriesCollection();
     
-            XYSeries ds5 = sn_dataset(-5.0, 5.0, 200);
+            XYSeries ds5 = am_dataset(.0, 20.0, 200);
             dataset.addSeries(ds5);
             
-            XYSeries ds4 = cn_dataset(-5.0, 5.0, 200);
+            XYSeries ds4 = am_dataset2(.0, 20.0, 200);
             dataset.addSeries(ds4);
             
-            XYSeries ds3 = dn_dataset(-5.0, 5.0, 200);
+            XYSeries ds3 = am_dataset3(.0, 20.0, 200);
             dataset.addSeries(ds3);
+            
+            XYSeries ds2 = am_dataset4(.0, 20.0, 200);
+            dataset.addSeries(ds2);
             JFreeChart chart2 = ChartFactory.createXYLineChart("Am Plot",
                     "x", "y", dataset, PlotOrientation.VERTICAL, true, true,
                     false);
@@ -47,19 +50,9 @@ public static void main(String[] args) {
 
 }
  
-	private static XYSeries sn_dataset( double x0, double xn, int npoints) {
+	private static XYSeries am_dataset( double x0, double xn, int npoints) {
 		
-		UAm uen=new UAm(0.3);
-		
-		uen.compute(x0, xn, npoints);
-	
-	    return uen.getSeries();
-	}
-	
-	 
-	private static XYSeries cn_dataset( double x0, double xn, int npoints) {
-		
-		UAm uen=new UAm(0.5);
+		UAm uen=new UAm(0.25);
 		
 		uen.compute(x0, xn, npoints);
 	
@@ -67,15 +60,32 @@ public static void main(String[] args) {
 	}
 	
 	 
-	private static XYSeries dn_dataset( double x0, double xn, int npoints) {
+	private static XYSeries am_dataset2( double x0, double xn, int npoints) {
 		
-		UAm uen=new UAm(0.7);
+		UAm uen=new UAm(0.75);
+		
+		uen.compute(x0, xn, npoints);
+	
+	    return uen.getSeries();
+	}
+	
+	 
+	private static XYSeries am_dataset3( double x0, double xn, int npoints) {
+		
+		UAm uen=new UAm(1.25);
 		
 		uen.compute(x0, xn, npoints);
 	
 	    return uen.getSeries();
 	}
 	 
-
+	private static XYSeries am_dataset4( double x0, double xn, int npoints) {
+		
+		UAm uen=new UAm(4.);
+		
+		uen.compute(x0, xn, npoints);
+	
+	    return uen.getSeries();
+	}
 
 }
