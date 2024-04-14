@@ -7,7 +7,7 @@ import org.jfree.data.xy.XYSeries;
 import ijaux.quad.Utils;
 import ijaux.quad.cel.*;
 
-public class UDn extends Cn implements UIFunction {
+public class UDn extends Dn implements UIFunction {
 
 	public UDn(double aa) {
 		super(aa);
@@ -16,7 +16,7 @@ public class UDn extends Cn implements UIFunction {
 		udata = new DefaultXYDataset();
 	}
 
-	private String title="cn";
+	private String title="dn";
 	
 	DefaultXYDataset udata =null;
 	XYSeries series=null;

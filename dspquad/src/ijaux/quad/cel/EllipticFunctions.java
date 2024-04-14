@@ -23,6 +23,13 @@ public class EllipticFunctions {
         return ellipj(u, m, Math.ulp(1.0));
     }
 
+    /**
+     * 
+     * @param u
+     * @param m
+     * @param tol
+     * @return 0 - sn; 1 - cn; 2 - dn; 3 - am
+     */
     public static double[] ellipj(double u, double m, double tol) {
         double[] result = new double[4];
 
@@ -63,9 +70,9 @@ public class EllipticFunctions {
         double[] c = new double[nd];
         double[] b = new double[nd];
         
-        a[0]=1.0;
+        a[0]=1.;
         c[0]=sqrt(m);
-        b[0]=sqrt(1 - m);
+        b[0]=sqrt(1. - m);
        
 
         int i = 0;
@@ -90,9 +97,9 @@ public class EllipticFunctions {
         }
         //System.out.println(i);
         
-        result[0] = sin(phi);
-        result[1] = cos(phi);
-        result[2] = sqrt(1 - m * pow(sin(phi), 2));
+        result[0] = sin(phi); //sn
+        result[1] = cos(phi); //cd
+        result[2] = sqrt(1 - m * result[0]*result[0]); //dn
         result[3] = phi;
 
         return result;
