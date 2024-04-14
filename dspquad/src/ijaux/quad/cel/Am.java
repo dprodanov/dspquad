@@ -1,7 +1,6 @@
 package ijaux.quad.cel;
 
 import static java.lang.Math.sqrt;
-import static java.lang.Math.asin;
 
 import ijaux.quad.QFunction;
 
@@ -40,10 +39,11 @@ public class Am implements QFunction {
 			final double[] ret=EllipticFunctions.ellipj(x,  m,  tol);
 			return ret[3];
 		} else {
-			// http://arkadiusz-jadczyk.eu/blog/2017/01/case-inverted-modulus-treading-tigers-tail/
+			// Greenhiil, The Applications of Elliptic Functions, 1892
+			// https://archive.org/details/applicationsofel00greeuoft/page/24/mode/2up
 			rm=sqrt(1./m);
 			final double[] ret=EllipticFunctions.ellipj(x*rm,  1./m,  tol);
-			return (ret[3]);
+			return ret[3];
 		}
 	}
 	
