@@ -45,6 +45,7 @@ public static void main(String[] args) {
             
             XYSeries ds6 = dn_dataset2(-5.0, 5.0, 200);
             dataset.addSeries(ds6);
+           
             
             JFreeChart chart2 = ChartFactory.createXYLineChart("sn/cn/dn Plot",
                     "x", "y", dataset, PlotOrientation.VERTICAL, true, true,
@@ -115,6 +116,6 @@ public static void main(String[] args) {
 	    return uen.getSeries();
 	}
 	 
-
+ 
 
 }

@@ -19,6 +19,12 @@ import static java.lang.Math.abs;
 
 public class EllipticFunctions {
 
+	/**
+     * 
+     * @param u
+     * @param m
+     * @return 0 - sn; 1 - cn; 2 - dn; 3 - am
+     */
     public static double[] ellipj(double u, double m) {
         return ellipj(u, m, Math.ulp(1.0));
     }

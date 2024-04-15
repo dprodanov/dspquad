@@ -38,6 +38,10 @@ public static void main(String[] args) {
             
             XYSeries ds2 = am_dataset4(.0, 20.0, 200);
             dataset.addSeries(ds2);
+            
+            XYSeries ds7 = eps_dataset(0, 20.0, 200);
+            dataset.addSeries(ds7);
+            
             JFreeChart chart2 = ChartFactory.createXYLineChart("Am Plot",
                     "x", "y", dataset, PlotOrientation.VERTICAL, true, true,
                     false);
@@ -87,5 +91,16 @@ public static void main(String[] args) {
 	
 	    return uen.getSeries();
 	}
+	
+private static XYSeries eps_dataset( double x0, double xn, int npoints) {
+		
+		UEps uen=new UEps(0.75);
+		
+		uen.compute(x0, xn, npoints);
+	
+	    return uen.getSeries();
+	}
+
+	
 
 }
