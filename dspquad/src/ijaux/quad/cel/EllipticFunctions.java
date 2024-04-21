@@ -16,6 +16,8 @@ import static java.lang.Math.tanh;
 import static java.lang.Math.sqrt; 
 import static java.lang.Math.pow; 
 import static java.lang.Math.abs; 
+import static java.lang.Math.min; 
+import static java.lang.Math.log; 
 
 public class EllipticFunctions {
 
@@ -67,9 +69,9 @@ public class EllipticFunctions {
      * @return
      */
     private static double[] compute(double u, double m, double tol) {
+    	
         double[] result = new double[4];
-        //double a, b, c;
-        int nd=(int) Math.min( (-Math.log(tol)/Math.log(2)/2.0), 8);
+        int nd=(int) min( (-log(tol)/log(2.)/2.), 8);
         //System.out.println(nd);
 
         double[] a = new double[nd];
@@ -80,7 +82,6 @@ public class EllipticFunctions {
         c[0]=sqrt(m);
         b[0]=sqrt(1. - m);
        
-
         int i = 0;
         // AGM
         while (abs(c[i]) >= tol && i< nd ) {
@@ -88,11 +89,10 @@ public class EllipticFunctions {
             b[i+1] = sqrt  (a[i] * b[i]);
             c[i+1] = 0.5 * (a[i] - b[i]);          
             i++;
-
         }
  
         int n=i; 
-      
+
         
         double phi = pow(2, n) * a[n] * u;
        
@@ -101,8 +101,7 @@ public class EllipticFunctions {
              phi = 0.5 * (asin(c[i]/ a[i] * sin(phi) ) + phi);
             	
         }
-        //System.out.println(i);
-        
+        //System.out.println(i);        
         result[0] = sin(phi); //sn
         result[1] = cos(phi); //cd
         result[2] = sqrt(1 - m * result[0]*result[0]); //dn
@@ -115,7 +114,7 @@ public class EllipticFunctions {
     public static void main(String[] args) {
         double u = 0.5;
         double m = 0.3;
-        double tol = 1e-16;// Math.ulp(1.0);
+        double tol = 1e-16;
         System.out.println(tol);
         
         double[] result = ellipj(u, m, tol);
