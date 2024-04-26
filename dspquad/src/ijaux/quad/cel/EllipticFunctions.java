@@ -70,7 +70,7 @@ public class EllipticFunctions {
      */
     private static double[] compute(double u, double m, double tol) {
     	
-        double[] result = new double[4];
+        double[] result = new double[5];
         int nd=(int) min( (-log(tol)/log(2.)/2.), 16);
         //System.out.println(nd);
 
@@ -95,17 +95,19 @@ public class EllipticFunctions {
 
         
         double phi = pow(2, n) * a[n] * u;
-       
+       // double oldphi=0;
         for (i=n; i>0; i--) {
         	// System.out.println(phi + " " +i);
+        	//oldphi=phi;
              phi = 0.5 * (asin(c[i]/ a[i] * sin(phi) ) + phi);
             	
         }
         //System.out.println(i);        
         result[0] = sin(phi); //sn
-        result[1] = cos(phi); //cd
+        result[1] = cos(phi); //cn
         result[2] = sqrt(1 - m * result[0]*result[0]); //dn
-        result[3] = phi;
+        result[3] = phi; // am
+        result[4] = 0.5/b[n]*Math.PI; //phi-oldphi+0.5*Math.PI; // coam
 
         return result;
     }
@@ -122,6 +124,7 @@ public class EllipticFunctions {
         System.out.println("CN: " + result[1]);
         System.out.println("DN: " + result[2]);
         System.out.println("AM: " + result[3]);
+        System.out.println("K: " + result[4]);
     }
 }
   

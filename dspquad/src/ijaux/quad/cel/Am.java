@@ -1,6 +1,7 @@
 package ijaux.quad.cel;
 
 import static java.lang.Math.sqrt;
+import static java.lang.Math.asin;
 
 import ijaux.quad.QFunction;
 
@@ -43,7 +44,7 @@ public class Am implements QFunction {
 			// https://archive.org/details/applicationsofel00greeuoft/page/24/mode/2up
 			final double rm=sqrt(m);
 			final double[] ret=EllipticFunctions.ellipj(x*rm,  1./m,  tol);
-			return ret[3];
+			return  asin(ret[0]/rm);
 		}
 	}
 	
@@ -53,12 +54,16 @@ public class Am implements QFunction {
 	}
 
 	public static void main(String[] args) {
-        double u = 1;
+        double u = 5;
         double m = 1.5;
-       // double tol = 1e-16;
+ 
      
         Am am=new  Am (m);
         
         System.out.println(am.eval(u));
+        
+        Sn sn=new  Sn (m);
+        
+        System.out.println(sn.eval(u));
     }
 }
