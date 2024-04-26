@@ -12,7 +12,7 @@ public class Cn implements QFunction {
 
 
 	double m=0;
-	double rm=0;
+	//double rm=0;
 	double tol=1e-16;
 	
 	/**
@@ -38,7 +38,7 @@ public class Cn implements QFunction {
 			final double[] ret=EllipticFunctions.ellipj(x,  m,  tol);
 			return ret[1];
 		} else {
-			rm=sqrt(1./m); // cn -> dn
+			final double rm=sqrt(m); // cn -> dn
 			final double[] ret=EllipticFunctions.ellipj(x*rm,  1./m,  tol);
 			return ret[2];
 		}
@@ -48,5 +48,15 @@ public class Cn implements QFunction {
 	public String toString() {
 		return "cn(x | m)";
 	}
+	
+	public static void main(String[] args) {
+        double u = 1.;
+        double m = 1.5;
+       // double tol = 1e-16;
+     
+        Cn am=new  Cn (m);
+        
+        System.out.println(am.eval(u));
+    }
 
 }

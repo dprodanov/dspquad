@@ -71,7 +71,7 @@ public class EllipticFunctions {
     private static double[] compute(double u, double m, double tol) {
     	
         double[] result = new double[4];
-        int nd=(int) min( (-log(tol)/log(2.)/2.), 8);
+        int nd=(int) min( (-log(tol)/log(2.)/2.), 16);
         //System.out.println(nd);
 
         double[] a = new double[nd];

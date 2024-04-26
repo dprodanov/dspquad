@@ -13,7 +13,7 @@ public class Am implements QFunction {
 
 
 	double m=0;
-	double rm=0;
+	//double rm=0;
 	double tol=1e-16;
 	
 	/**
@@ -41,7 +41,7 @@ public class Am implements QFunction {
 		} else {
 			// Greenhiil, The Applications of Elliptic Functions, 1892
 			// https://archive.org/details/applicationsofel00greeuoft/page/24/mode/2up
-			rm=sqrt(1./m);
+			final double rm=sqrt(m);
 			final double[] ret=EllipticFunctions.ellipj(x*rm,  1./m,  tol);
 			return ret[3];
 		}
@@ -52,4 +52,13 @@ public class Am implements QFunction {
 		return "am(x | m)";
 	}
 
+	public static void main(String[] args) {
+        double u = 1;
+        double m = 1.5;
+       // double tol = 1e-16;
+     
+        Am am=new  Am (m);
+        
+        System.out.println(am.eval(u));
+    }
 }

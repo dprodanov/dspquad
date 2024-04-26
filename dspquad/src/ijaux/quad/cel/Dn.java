@@ -13,7 +13,7 @@ public class Dn implements QFunction {
 
 
 	double m=0;
-	double rm=0;
+	//double rm=0;
 	double tol=1e-16;
 	
 	/**
@@ -39,7 +39,7 @@ public class Dn implements QFunction {
 			final double[] ret=EllipticFunctions.ellipj(x,  m,  tol);
 			return ret[2];
 		} else {
-			rm=sqrt(1./m); //dn -> cn
+			final double rm=sqrt(m); //dn -> cn
 			final double[] ret=EllipticFunctions.ellipj(x*rm,  1./m,  tol);
 			return ret[1];
 		}
@@ -50,4 +50,13 @@ public class Dn implements QFunction {
 		return "dn(x | m)";
 	}
 
+	public static void main(String[] args) {
+        double u = 1.;
+        double m = 1.5;
+       // double tol = 1e-16;
+     
+        Dn am=new  Dn (m);
+        
+        System.out.println(am.eval(u));
+    }
 }
