@@ -12,7 +12,6 @@ public class Sn implements QFunction {
 
 
 	double m=0;
-	//double rm=0;
 	double tol=1e-16;
 	
 	/**

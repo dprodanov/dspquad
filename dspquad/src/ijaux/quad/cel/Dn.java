@@ -13,7 +13,6 @@ public class Dn implements QFunction {
 
 
 	double m=0;
-	//double rm=0;
 	double tol=1e-16;
 	
 	/**
@@ -53,7 +52,6 @@ public class Dn implements QFunction {
 	public static void main(String[] args) {
         double u = 1.;
         double m = 1.5;
-       // double tol = 1e-16;
      
         Dn am=new  Dn (m);
         
