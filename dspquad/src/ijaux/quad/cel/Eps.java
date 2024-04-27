@@ -38,6 +38,15 @@ public class Eps implements QFunction {
 		m=mm;
 		dn=new Dn(mm);
 	}
+	
+	/**
+	 * 
+	 * @param p
+	 */
+	public void setParams(double p) {
+		m=p;
+		dn.setParams(m);
+	}
 
 	@Override
 	public double eval(double x) {

@@ -51,10 +51,8 @@ public class Sn implements QFunction {
 	public static void main(String[] args) {
         double u = 1.;
         double m = 1.5;
-       // double tol = 1e-16;
      
         Sn am=new  Sn (m);
-        
         System.out.println(am.eval(u));
     }
 }

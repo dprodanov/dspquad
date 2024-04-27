@@ -2,6 +2,7 @@ package ijaux.quad.cel;
 
 import static java.lang.Math.sqrt;
 import static java.lang.Math.asin;
+import static java.lang.Math.acos;
 
 import ijaux.quad.QFunction;
 
@@ -44,6 +45,7 @@ public class Am implements QFunction {
 			final double rm=sqrt(m);
 			final double[] ret=EllipticFunctions.ellipj(x*rm,  1./m,  tol);
 			return  asin(ret[0]/rm);
+			//return   acos(ret[1]);
 		}
 	}
 	
@@ -53,16 +55,14 @@ public class Am implements QFunction {
 	}
 
 	public static void main(String[] args) {
-        double u = 5;
+        double u = 1;
         double m = 1.5;
- 
-     
+      
         Am am=new  Am (m);
-        
         System.out.println(am.eval(u));
         
         Sn sn=new  Sn (m);
-        
-        System.out.println(sn.eval(u));
+        double val=sn.eval(u);
+        System.out.println(val+"\t" + asin(val) );
     }
 }

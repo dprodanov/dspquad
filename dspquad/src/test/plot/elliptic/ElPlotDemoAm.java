@@ -85,7 +85,7 @@ public static void main(String[] args) {
 	 
 	private static XYSeries am_dataset4( double x0, double xn, int npoints) {
 		
-		UAm uen=new UAm(4.);
+		UAm uen=new UAm(1.5);
 		
 		uen.compute(x0, xn, npoints);
 	
