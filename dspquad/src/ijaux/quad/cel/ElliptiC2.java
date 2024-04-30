@@ -40,7 +40,7 @@ public class ElliptiC2 implements QFunction {
     protected double cel(double kcc, double pp, double aa, double bb) {
         double  kc=kcc, p=pp, a=aa, b=bb, e, m, f, q, g;
  
-        if ( kc == 0.0 )  
+        if ( kcc == 0.0 )  
         	return 0;
         	
         kc = abs(kc);
