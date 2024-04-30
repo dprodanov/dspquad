@@ -55,13 +55,13 @@ public class EllipticFunctions {
             result[0] = sin(currentU);
             result[1] = cos(currentU);
             result[2] = 1.;
-           // result[4] = .5*Math.PI;
+            result[4] = .5*Math.PI;
         } else { // currentM == 1
             result[3] = asin(tanh(currentU));
             result[0] = tanh(currentU);
             result[1] = 1. / cosh(currentU);
             result[2] = 1. / cosh(currentU);
-            //result[4] = 0;
+            result[4] = 0;
         }
 
         return result;
@@ -124,7 +124,7 @@ public class EllipticFunctions {
         result[2] = sqrt(1 - m * result[0]*result[0]); //dn
         result[3] = phi; // am
         result[4] = 0.5*PI/b[n];  //K
-        result[5] = result[4]*(a[0]*a[0]-0.5*s); //E
+        result[5] = result[4]*(a[0]*a[0]- .5*s); //E
         
  
         double Ff = phin / (a[n]*f);         
