@@ -56,12 +56,14 @@ public class EllipticFunctions {
             result[1] = cos(currentU);
             result[2] = 1.;
             result[4] = .5*Math.PI;
+            result[5] = .5*Math.PI;
         } else { // currentM == 1
             result[3] = asin(tanh(currentU));
             result[0] = tanh(currentU);
             result[1] = 1. / cosh(currentU);
             result[2] = 1. / cosh(currentU);
             result[4] = 0;
+            result[5] = 1.;
         }
 
         return result;
@@ -92,11 +94,11 @@ public class EllipticFunctions {
         double s=0;
         double phin=abs(u);
         double Cp=0;  
-        double sgn=1.;
-        if (u<0) sgn=-1.;
+        double sgn = sgn(u);
         
         int f=1;
         // AGM
+        nd--;
         while (abs(c[i]) >= tol && i< nd ) {
             a[i+1] = 0.5 * (a[i] + b[i]);  // a         
             b[i+1] = sqrt  (a[i] * b[i]); // g
@@ -109,10 +111,10 @@ public class EllipticFunctions {
             f *= 2;   
             i++;
         }
- 
+      
         int n=i; 
-        //System.out.println(f+ " "+ pow(2, n));
-        //double phi = pow(2, n) * a[n] * u;       
+        if (n==nd) n--;
+    
         double phi = f * a[n] * u;   
         for (i=n; i>0; i--) {
              phi = 0.5 * (asin(c[i]/ a[i] * sin(phi) ) + phi);
@@ -135,28 +137,44 @@ public class EllipticFunctions {
         return result;
     }
 
+	/**
+	 * @param u
+	 * @return
+	 */
+	private static double sgn(double u) {
+		double sgn=1.;
+        if (u<0) sgn=-1.;
+		return sgn;
+	}
+
+	/**
+	 * 
+	 * @param m
+	 * @param tol
+	 * @return
+	 */
     public static double[] ef2(double m,  double tol) {
         double a = (1. + sqrt(1. - m)) / 2.;
-        double d = m / (4. * a); // c_{n+1}= (a_n-g_n)/2 = c_n^2/(4 a_{n+1}
-      //  double t = Math.log(c / (4 * a));
+        double c = m / (4. * a); // c_{n+1}= (a_n-g_n)/2 = c_n^2/(4 a_{n+1}
+      //  double t = Math.log(c / (4. * a));
         double s = a * a;
         double f = 1.;
         double v;
         //System.out.println (s+" "+ d);
         
-        while (abs(d) >= tol) {
-            v = (a + sqrt((a - d) * (a + d))) / 2.;
+        while (abs(c) >= tol) {
+            v = (a + sqrt((a - c) * (a + c))) / 2.;
         //    t += Math.log(a / v) / f;
             a = v;
-            d = (d * d) / (4. * a);
+            c = (c * c) / (4. * a);
             f *= 2.;
-            s -= f * d * d;
-          //System.out.println ("v "+a+ " d "+d+" s "+s);
+            s -= f * c * c;
+          //System.out.println ("v "+a+ " c "+c+" s "+s);
         }
 
         double K = PI / (2. * a);
         double E = K *s;
-        System.out.println(E);
+       // System.out.println(E);
         return new double[]{K, E};
     }
 
