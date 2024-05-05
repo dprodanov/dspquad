@@ -43,7 +43,7 @@ public class EllipticFunctions {
      * @return 0 - sn; 1 - cn; 2 - dn; 3 - am
      */
     public static double[] ellipj(double u, double m, double tol) {
-        double[] result = new double[4];
+        double[] result = new double[8];
 
         double currentU = u;
         double currentM = m;
@@ -57,17 +57,52 @@ public class EllipticFunctions {
             result[2] = 1.;
             result[4] = .5*Math.PI;
             result[5] = .5*Math.PI;
+            result[6] = currentU;
+            result[7] = currentU;
         } else { // currentM == 1
             result[3] = asin(tanh(currentU));
             result[0] = tanh(currentU);
             result[1] = 1. / cosh(currentU);
             result[2] = 1. / cosh(currentU);
             result[4] = 0;
-            result[5] = 1.;
+            result[5] = 1.;  
+            result[6]= asinhtan( currentU);
+            result[7]= ei1( currentU); 
         }
 
         return result;
     }
+
+	/**
+	 * @param currentM
+	 *  ei3(x):=block( [m], m:2*fix(x/%pi),  x: mod(x, %pi),  if (x<%pi/2) then m+sin(x) elseif (x<%pi) then m+2- sin(x) );
+	 */
+	public static double ei1(double currentU) {
+		double result=0;
+		
+		double mm= 2.*Math.floor(currentU/PI);
+		currentU=rem(currentU, PI );
+		if (currentU < 0.5*PI)
+			result= mm+ sin( currentU); // |u| < %pi/2
+		else if (currentU <= PI) 
+			result= mm+ 2. - sin(currentU);
+		return result;
+	}
+    
+    
+    private static double rem (double a, double b) {
+    	return a- Math.round(a/b)*b;
+    }
+
+	/**
+	 * @param result
+	 * @param currentU
+	 * @return 
+	 */
+	public static double asinhtan( double x) {
+		final double tan2=tan(x); 
+		return log(sqrt(tan2*tan2+1.)+tan2); // asinh(tan(x));
+	}
 
     /**
      * 
@@ -141,7 +176,7 @@ public class EllipticFunctions {
 	 * @param u
 	 * @return
 	 */
-	private static double sgn(double u) {
+	public static double sgn(double u) {
 		double sgn=1.;
         if (u<0) sgn=-1.;
 		return sgn;
@@ -192,8 +227,8 @@ public class EllipticFunctions {
         System.out.println("AM: " + result[3]);
         System.out.println("K: " + result[4]);
         System.out.println("E: " + result[5]);
-        System.out.println("F: " + result[6]);
-        System.out.println("E1: " + result[7]);
+        System.out.println("Fi: " + result[6]);
+        System.out.println("Ei: " + result[7]);
         
        // result = ef2(m, tol);
         
@@ -206,8 +241,8 @@ public class EllipticFunctions {
         System.out.println("AM: " + result[3]);
         System.out.println("K: " + result[4]);
         System.out.println("E: " + result[5]);
-        System.out.println("F: " + result[6]);
-        System.out.println("E1: " + result[7]);
+        System.out.println("Fi: " + result[6]);
+        System.out.println("Ei: " + result[7]);
         
     }
 }
