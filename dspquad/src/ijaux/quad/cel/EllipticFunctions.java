@@ -15,12 +15,14 @@ import static java.lang.Math.cos;
 import static java.lang.Math.cosh; 
 import static java.lang.Math.tanh; 
 import static java.lang.Math.sqrt; 
-import static java.lang.Math.pow; 
+//import static java.lang.Math.pow; 
 import static java.lang.Math.abs; 
 import static java.lang.Math.min; 
 import static java.lang.Math.log; 
 import static java.lang.Math.tan;
 import static java.lang.Math.atan; 
+import static java.lang.Math.floor; 
+import static java.lang.Math.round; 
 import static java.lang.Math.PI; 
 
 public class EllipticFunctions {
@@ -29,7 +31,7 @@ public class EllipticFunctions {
      * 
      * @param u
      * @param m
-     * @return 0 - sn; 1 - cn; 2 - dn; 3 - am
+     * @return 0 - sn; 1 - cn; 2 - dn; 3 - am; 4 - K, 5 - E, 6 - Fi, 7 - Ei
      */
     public static double[] ellipj(double u, double m) {
         return ellipj(u, m, Math.ulp(1.0));
@@ -40,7 +42,7 @@ public class EllipticFunctions {
      * @param u
      * @param m
      * @param tol
-     * @return 0 - sn; 1 - cn; 2 - dn; 3 - am
+     * @return 0 - sn; 1 - cn; 2 - dn; 3 - am; 4 - K, 5 - E, 6 - Fi, 7 - Ei
      */
     public static double[] ellipj(double u, double m, double tol) {
         double[] result = new double[8];
@@ -77,21 +79,21 @@ public class EllipticFunctions {
 	 * @param currentM
 	 *  ei3(x):=block( [m], m:2*fix(x/%pi),  x: mod(x, %pi),  if (x<%pi/2) then m+sin(x) elseif (x<%pi) then m+2- sin(x) );
 	 */
-	public static double ei1(double currentU) {
+	public static double ei1(double u) {
 		double result=0;
 		
-		double mm= 2.*Math.floor(currentU/PI);
-		currentU=rem(currentU, PI );
-		if (currentU < 0.5*PI)
-			result= mm+ sin( currentU); // |u| < %pi/2
-		else if (currentU <= PI) 
-			result= mm+ 2. - sin(currentU);
+		final double mm= 2.*floor(u/PI);
+		u=rem(u, PI );
+		if (u < 0.5*PI)
+			result= mm+ sin( u); // |u| < %pi/2
+		else if (u <= PI) 
+			result= mm+ 2. - sin(u);
 		return result;
 	}
     
     
     private static double rem (double a, double b) {
-    	return a- Math.round(a/b)*b;
+    	return a- floor(a/b)*b;
     }
 
 	/**
@@ -137,9 +139,10 @@ public class EllipticFunctions {
         while (abs(c[i]) >= tol && i< nd ) {
             a[i+1] = 0.5 * (a[i] + b[i]);  // a         
             b[i+1] = sqrt  (a[i] * b[i]); // g
-            c[i+1] = 0.5 * (a[i] - b[i]);  //c
-             
-            s += f * c[i] * c[i];
+            //c[i+1] = 0.5 * (a[i] - b[i]);  //c
+            final double c2= c[i]*c[i];
+            c [i+1]=  c2/(4. * a [i+1]);
+            s += f * c2;
             phin += atan(b[i]/a[i]*tan(phin) ) + PI*Math.ceil(phin/PI - 0.5) ;
             Cp+=c[i+1]*sin(phin ); 
             
@@ -190,7 +193,7 @@ public class EllipticFunctions {
 	 */
     public static double[] ef2(double m,  double tol) {
         double a = (1. + sqrt(1. - m)) / 2.;
-        double c = m / (4. * a); // c_{n+1}= (a_n-g_n)/2 = c_n^2/(4 a_{n+1}
+        double c = m / (4. * a); // c_{n+1}= (a_n-g_n)/2 = c_n^2/(4 a_{n+1})
       //  double t = Math.log(c / (4. * a));
         double s = a * a;
         double f = 1.;

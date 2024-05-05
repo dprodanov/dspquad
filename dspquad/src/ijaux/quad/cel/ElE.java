@@ -2,6 +2,9 @@ package ijaux.quad.cel;
 
 import static java.lang.Math.sqrt;
 
+/**
+ * complete elliptic integral of the 2nd kind 
+ * */
 public class ElE extends ElliptiC {
 
 	public ElE() {
