@@ -167,7 +167,7 @@ public class EllipticFunctions {
         result[5] = result[4]*(a[0]*a[0]- .5*s); //E
         
  
-        double Ff = phin / (a[n]*f);         
+        final double Ff = phin / (a[n]*f);         
           
         result[6] = Ff*sgn;                  // F
         result[7] = Cp*sgn + (1. - .5*s) *result[6]; // E1
@@ -193,7 +193,7 @@ public class EllipticFunctions {
 	 */
     public static double[] ef2(double m,  double tol) {
         double a = (1. + sqrt(1. - m)) / 2.;
-        double c = m / (4. * a); // c_{n+1}= (a_n-g_n)/2 = c_n^2/(4 a_{n+1})
+        double c = m / (4. * a); 
       //  double t = Math.log(c / (4. * a));
         double s = a * a;
         double f = 1.;
@@ -204,7 +204,7 @@ public class EllipticFunctions {
             v = (a + sqrt((a - c) * (a + c))) / 2.;
         //    t += Math.log(a / v) / f;
             a = v;
-            c = (c * c) / (4. * a);
+            c = (c * c) / (4. * a);// c_{n+1}= (a_n-g_n)/2 = c_n^2/(4 a_{n+1})
             f *= 2.;
             s -= f * c * c;
           //System.out.println ("v "+a+ " c "+c+" s "+s);
