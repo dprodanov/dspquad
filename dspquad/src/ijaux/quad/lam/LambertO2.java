@@ -14,6 +14,7 @@ public class LambertO2 implements QFunction {
 	public int aiter=0;
 	
 	private int branch=0;
+	private final double eps=1e-32;
 	
 	public LambertO2() {	}
 
@@ -38,7 +39,7 @@ public class LambertO2 implements QFunction {
 			return nonprincipalH(x);
 	}
 	
-	private final double eps=1e-32;
+	
 
 	/**
 	 * @param x
@@ -71,15 +72,15 @@ public class LambertO2 implements QFunction {
 		if (abs(w)<eps) return w;
 		//System.out.println("w0="+w);
 		int i=0;
-		double err=2;
-		double lw=0;
+		double err=2.0;
+		double lw=0.0;
 		// Halley-Newton method
 		while (i<niter && abs(err)>tol ) {
 			lw=log(abs(w));
 			if (!Double.isFinite(lw))
 				lw=1/tol;
 			final double dw=(x+w-lw);
-			final double q=-dw/(2.0*w)+(1.0-w)*(1.0-w)/w;
+			final double q=-dw/(2.0*w) + (1.0-w)*(1.0-w)/w;
 			if (q!=0)
 				w+=dw*(1.0-w)/q;
 			else
@@ -161,6 +162,8 @@ public class LambertO2 implements QFunction {
 		x=-1.0;
 		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
 		x=-1.0005;
+		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
+		x=-2.0;
 		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);
 		x=-10.0;
 		System.out.println("x= "+x+ " W= " +lw.eval(x)+ " n="+lw.aiter);

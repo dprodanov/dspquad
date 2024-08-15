@@ -20,9 +20,9 @@ import static java.lang.Math.abs;
 import static java.lang.Math.min; 
 import static java.lang.Math.log; 
 import static java.lang.Math.tan;
-import static java.lang.Math.atan; 
+//import static java.lang.Math.atan; 
 import static java.lang.Math.floor; 
-import static java.lang.Math.round; 
+//import static java.lang.Math.round; 
 import static java.lang.Math.PI; 
 
 public class EllipticFunctions {
@@ -138,12 +138,13 @@ public class EllipticFunctions {
         nd--;
         while (abs(c[i]) >= tol && i< nd ) {
             a[i+1] = 0.5 * (a[i] + b[i]);  // a         
-            b[i+1] = sqrt  (a[i] * b[i]); // g
+            b[i+1] = sqrt  (a[i]) * sqrt(b[i]); // g
             //c[i+1] = 0.5 * (a[i] - b[i]);  //c
             final double c2= c[i]*c[i];
             c [i+1]=  c2/(4. * a [i+1]);
             s += f * c2;
-            phin += atan(b[i]/a[i]*tan(phin) ) + PI*Math.ceil(phin/PI - 0.5) ;
+          //  phin += atan(b[i]/a[i]*tan(phin) ) + PI*Math.ceil(phin/PI - 0.5) ;
+            phin += Math.atan2(b[i]*tan(phin), a[i] ) + PI*Math.ceil(phin/PI - 0.5) ; // round
             Cp+=c[i+1]*sin(phin ); 
             
             f *= 2;   
@@ -194,7 +195,7 @@ public class EllipticFunctions {
     public static double[] ef2(double m,  double tol) {
         double a = (1. + sqrt(1. - m)) / 2.;
         double c = m / (4. * a); 
-      //  double t = Math.log(c / (4. * a));
+        double t = Math.log(c / (4. * a));
         double s = a * a;
         double f = 1.;
         double v;
@@ -202,7 +203,7 @@ public class EllipticFunctions {
         
         while (abs(c) >= tol) {
             v = (a + sqrt((a - c) * (a + c))) / 2.;
-        //    t += Math.log(a / v) / f;
+            t += Math.log(a / v) / f;
             a = v;
             c = (c * c) / (4. * a);// c_{n+1}= (a_n-g_n)/2 = c_n^2/(4 a_{n+1})
             f *= 2.;
@@ -213,7 +214,7 @@ public class EllipticFunctions {
         double K = PI / (2. * a);
         double E = K *s;
        // System.out.println(E);
-        return new double[]{K, E};
+        return new double[]{K, E, Math.exp(t)};
     }
 
     

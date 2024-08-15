@@ -48,7 +48,7 @@ public static void main(String[] args) {
 	        			( (x) -> exp(x)	)
 	        			);
 	        	
-	        	UPlotter plotter3=new UPlotter("x-log(x )", 
+	        	UPlotter plotter3=new UPlotter("x-log(x)", 
 	        			(x) ->  (x -log(x ) ) );
 	        	
 	            JFrame frame = new JFrame("Charts");

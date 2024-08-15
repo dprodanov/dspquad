@@ -35,7 +35,7 @@ public static void main(String[] args) {
 	        	
 	        	double x1=-0.99;
 	        	
-	        	int branch=0;
+	        	int branch=-1;
 	        	LambertO2 lw=new LambertO2();    		
 	        	
 	        	lw.setBranch(branch);

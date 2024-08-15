@@ -29,9 +29,9 @@ public class LambertO implements QFunction {
 		double err=1e10;
 		// Halley method
 		while (i<niter && abs(err)>tol ) {
-			final double lw=log((w));
+			final double lw=log(w);
 			err=w*(x-lw-w)/(w+1.0);
-			final double dd=((x-lw+1.0)/(2.0*(w+1))-(x-lw-2.0)/(2.0*w)+1);
+			final double dd=(x-lw+1.0)/(2.0*(w+1.0))-(x-lw-2.0)/(2.0*w)+1.0;
 			if (dd!=0)
 				w+=(x-lw-w)/dd; 
 			i++;
