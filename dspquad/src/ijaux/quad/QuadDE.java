@@ -342,6 +342,7 @@ public class QuadDE {
 						xa = xw / tk * 0.5;
 						wg = xa * (1.0 / tk + 2. * pq * (ep - em));
 						fm = f.eval(a + xa);
+						if (Double.isNaN(fm)) fm=0.0;
 						ir += fm * xw;
 						fm *= wg;
 						i += fm;
@@ -350,6 +351,7 @@ public class QuadDE {
 						tk += 1.0;
 					}
 					fm = f.eval(a + per2 * tn);
+					if (Double.isNaN(fm)) fm=0.0;
 					em = per2 * fm;
 					i += em;
 					if (abs(fp) > err || abs(em) > err) {
@@ -496,7 +498,7 @@ public class QuadDE {
 	public static double[] intdeq(QFunction f, double a, double b, double eps ) {
 		 final double tol = 10.*eps;
 		 //	 if (n <= 0) // use default levels n=6
-		 final int n = 6; // 6 is “optimal”, 7 just as good taking longer
+		 final int n = 6; // 6 is ï¿½optimalï¿½, 7 just as good taking longer
 		 
 		 final double c = (a+b)/2.; // center (mean)
 		 final double d = (b-a)/2.; // half distance
