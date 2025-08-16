@@ -5,7 +5,6 @@ import static ijaux.quad.QuadDE.intdeo;
 import static java.lang.Math.*;
 
 import ijaux.quad.QFunction;
-import ijaux.quad.euler.Gamma;
 
 /*
  *  Bessel K function

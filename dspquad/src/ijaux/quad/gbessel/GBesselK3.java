@@ -1,12 +1,11 @@
 package ijaux.quad.gbessel;
 
 //import static ijaux.quad.QuadDE.intdei;
-import static ijaux.quad.QuadDE.intdeo;
+//import static ijaux.quad.QuadDE.intdeo;
 import static java.lang.Math.*;
 
 import ijaux.quad.QFunction;
 import ijaux.quad.QuadBess;
-import ijaux.quad.euler.Gamma;
 
 /*
  *  Bessel K function
